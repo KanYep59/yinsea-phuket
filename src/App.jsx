@@ -430,7 +430,7 @@ const PRODUCTS = [
       </section>
 
       <div className="stats-bar">
-        {[["500+", "精选产品"], ["98%", "好评率"], ["5★", "服务评级"], ["24H", "专属响应"]].map(([n, l]) => (
+        {[["300+", "精选产品"], ["98%", "好评率"], ["5★", "服务评级"], ["24H", "专属响应"]].map(([n, l]) => (
           <div key={l} className="stat-item"><div className="stat-num">{n}</div><div className="stat-label">{l}</div></div>
         ))}
       </div>
