@@ -248,6 +248,36 @@ const PRODUCTS = [
     id: 2, cat: "villa", status: "avail",
     name: "玛瑞娜海岸线庄园", nameEn: "Marina Coast Estate",
     emoji: "🏛️",
+images: [
+  "https://i.ibb.co/5Wz2VrfD/photo-2026-06-08-02-50-40.jpg",
+  "https://i.ibb.co/S45B3P9m/photo-2026-06-08-02-50-44.jpg",
+  "https://i.ibb.co/F4Z7L441/photo-2026-06-08-02-50-48.jpg",
+  "https://i.ibb.co/rrH6QJY/photo-2026-06-08-02-50-52.jpg",
+  "https://i.ibb.co/7xzjbJLD/photo-2026-06-08-02-50-55.jpg",
+  "https://i.ibb.co/1fbHjbxF/photo-2026-06-08-02-50-57.jpg",
+  "https://i.ibb.co/SDCSvxxf/photo-2026-06-08-02-51-00.jpg",
+  "https://i.ibb.co/jP8TRN1x/photo-2026-06-08-02-51-03.jpg",
+  "https://i.ibb.co/rKFtHSmz/photo-2026-06-08-02-51-05.jpg",
+  "https://i.ibb.co/20hSt0WQ/photo-2026-06-08-02-51-07.jpg",
+  "https://i.ibb.co/ZRb6p2MW/photo-2026-06-08-02-51-10.jpg",
+  "https://i.ibb.co/yFKvWjPy/photo-2026-06-08-02-51-12.jpg",
+  "https://i.ibb.co/wh9X1zTD/photo-2026-06-08-02-51-15.jpg",
+  "https://i.ibb.co/TBk8FH1m/photo-2026-06-08-02-51-18.jpg",
+  "https://i.ibb.co/XxZ6JkXc/photo-2026-06-08-02-51-21.jpg",
+  "https://i.ibb.co/S4Km4V0y/photo-2026-06-08-02-51-24.jpg",
+  "https://i.ibb.co/VWN482yH/photo-2026-06-08-02-51-26.jpg",
+  "https://i.ibb.co/zH5gKs7L/photo-2026-06-08-02-51-29.jpg",
+  "https://i.ibb.co/JRm88Vzk/photo-2026-06-08-02-51-31.jpg",
+  "https://i.ibb.co/tMbk6H5z/photo-2026-06-08-02-51-34.jpg",
+  "https://i.ibb.co/GQwDD6Nm/photo-2026-06-08-02-51-36.jpg",
+  "https://i.ibb.co/sJb0Cvzw/photo-2026-06-08-02-51-38.jpg",
+  "https://i.ibb.co/dw1W4wS3/photo-2026-06-08-02-51-40.jpg",
+  "https://i.ibb.co/nNJrrPtQ/photo-2026-06-08-02-51-42.jpg",
+  "https://i.ibb.co/Z6Ytr4NV/photo-2026-06-08-02-51-44.jpg",
+  "https://i.ibb.co/4Znf103N/photo-2026-06-08-02-51-47.jpg",
+  "https://i.ibb.co/1Y9cpKCk/photo-2026-06-08-02-51-49.jpg",
+  "https://i.ibb.co/jvCrpxbw/photo-2026-06-08-02-51-51.jpg",
+],
     desc: "坐落于宁静的Cape Yamu半岛，占地4700㎡，俯瞰安达曼海与攀牙湾全景。6卧室可住12人，柚木与意大利进口家私，现代泰式融合欧式风情，各大明星网红同款别墅。",
     retail: 60000, agent: 51000, cost: 44000,
     includes: [
@@ -602,15 +632,48 @@ function ProductCard({ product: p, role, statusBadge, onClick }) {
   );
 }function DetailPage({ product: p, role, back, statusBadge }) {
   const [openFaq, setOpenFaq] = useState(null);
+  const [currentImg, setCurrentImg] = useState(0);
   const bestSupplier = p.suppliers?.reduce((a, b) => a.price < b.price ? a : b);
+  const images = p.images || [];
+
   return (
     <div className="detail-page">
       <button className="back-btn" onClick={back}>← 返回产品库</button>
-      <div className="detail-hero">
-        <span style={{ fontSize: 120, opacity: 0.25 }}>{p.emoji}</span>
-        <div className="detail-hero-overlay" />
-        <div style={{ position: "absolute", top: 16, left: 16 }}>{statusBadge(p.status)}</div>
-      </div>
+
+      {images.length > 0 ? (
+        <div style={{ position: "relative", background: "#000" }}>
+          <img
+            src={images[currentImg]}
+            alt={p.name}
+            style={{ width: "100%", height: "70vw", maxHeight: 420, objectFit: "cover", display: "block", opacity: 0.95 }}
+          />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(10,12,15,0.8))" }} />
+          <div style={{ position: "absolute", top: 12, left: 12 }}>{statusBadge(p.status)}</div>
+          <div style={{ position: "absolute", bottom: 12, right: 12, background: "rgba(0,0,0,0.5)", color: "var(--gold)", fontSize: 11, padding: "4px 10px", borderRadius: 20, letterSpacing: "0.1em" }}>
+            {currentImg + 1} / {images.length}
+          </div>
+          {currentImg > 0 && (
+            <button onClick={() => setCurrentImg(currentImg - 1)} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", background: "rgba(0,0,0,0.5)", border: "none", color: "#fff", width: 36, height: 36, borderRadius: "50%", fontSize: 18, cursor: "pointer" }}>‹</button>
+          )}
+          {currentImg < images.length - 1 && (
+            <button onClick={() => setCurrentImg(currentImg + 1)} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "rgba(0,0,0,0.5)", border: "none", color: "#fff", width: 36, height: 36, borderRadius: "50%", fontSize: 18, cursor: "pointer" }}>›</button>
+          )}
+          <div style={{ display: "flex", gap: 6, overflowX: "auto", padding: "10px 16px", background: "var(--deep)", scrollbarWidth: "none" }}>
+            {images.map((img, i) => (
+              <img key={i} src={img} alt="" onClick={() => setCurrentImg(i)}
+                style={{ width: 60, height: 45, objectFit: "cover", borderRadius: 4, cursor: "pointer", flexShrink: 0, border: i === currentImg ? "2px solid var(--gold)" : "2px solid transparent", opacity: i === currentImg ? 1 : 0.6, transition: "all 0.2s" }}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="detail-hero">
+          <span style={{ fontSize: 120, opacity: 0.25 }}>{p.emoji}</span>
+          <div className="detail-hero-overlay" />
+          <div style={{ position: "absolute", top: 16, left: 16 }}>{statusBadge(p.status)}</div>
+        </div>
+      )}
+
       <div className="detail-content">
         <div className="detail-header">
           <div className="detail-name">{p.name}</div>
