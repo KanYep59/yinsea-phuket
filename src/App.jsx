@@ -634,7 +634,7 @@ function ProductCard({ product: p, role, statusBadge, onClick }) {
     </div>
   );
 }
-}function DetailPage({ product: p, role, back, statusBadge }) {
+function DetailPage({ product: p, role, back, statusBadge }) {
   const [openFaq, setOpenFaq] = useState(null);
   const [currentImg, setCurrentImg] = useState(0);
   const bestSupplier = p.suppliers?.reduce((a, b) => a.price < b.price ? a : b);
