@@ -330,7 +330,6 @@ images: [
       "抖音短视频脚本"
     ]
   },
-  },
   {
     id: 3, cat: "spa", status: "avail",
     name: "Keemala竹屋SPA", nameEn: "Keemala Signature Spa",
