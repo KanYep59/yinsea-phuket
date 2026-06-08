@@ -579,10 +579,14 @@ function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, se
 
 function ProductCard({ product: p, role, statusBadge, onClick }) {
   const profit = p.retail - p.agent;
+  const coverImg = p.images && p.images.length > 0 ? p.images[0] : null;
   return (
     <div className="product-card" onClick={onClick}>
       <div className="product-img">
-        <span style={{ fontSize: 80, opacity: 0.3 }}>{p.emoji}</span>
+        {coverImg
+          ? <img src={coverImg} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} />
+          : <span style={{ fontSize: 80, opacity: 0.3 }}>{p.emoji}</span>
+        }
         <div className="product-img-overlay" />
         <div className="product-badges">
           {statusBadge(p.status)}
@@ -629,6 +633,7 @@ function ProductCard({ product: p, role, statusBadge, onClick }) {
       </div>
     </div>
   );
+}
 }function DetailPage({ product: p, role, back, statusBadge }) {
   const [openFaq, setOpenFaq] = useState(null);
   const [currentImg, setCurrentImg] = useState(0);
