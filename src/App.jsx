@@ -222,7 +222,6 @@ const STYLE = `
 `;const CATEGORIES = [
   { id: "yacht", icon: "⛵", name: "游艇出海", en: "Yacht Charter", count: 12 },
   { id: "villa", icon: "🏛️", name: "奢华别墅", en: "Luxury Villa", count: 8 },
-  { id: "hotel", icon: "🏨", name: "精品酒店", en: "Boutique Hotel", count: 24 },
   { id: "car", icon: "🚘", name: "豪华包车", en: "Private Transfer", count: 6 },
   { id: "spa", icon: "💆", name: "顶级SPA", en: "Luxury Spa", count: 15 },
   { id: "photo", icon: "📸", name: "旅拍写真", en: "Travel Photo", count: 10 },
