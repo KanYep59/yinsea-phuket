@@ -762,7 +762,7 @@ images: [
     desc: "Toyota Alphard埃尔法商务座驾，航空级豪华座椅，专业中文司机全程服务。机场接送单程15,000 THB，8小时包车36,000 THB，适合家庭、商务及高端度假客户。",
     retail: 36000, agent: 28000, cost: 24400,
     includes: [
-      "Toyota Alphard埃尔法豪华座驾",
+      "Toyota Alphard埃尔法豪华6座驾 可座6人",
       "专业中文司机",
       "航班延误免费等待（机场接送）",
       "协助搬运行李",
