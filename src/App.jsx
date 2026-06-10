@@ -220,9 +220,9 @@ const STYLE = `
   @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } .cat-grid { grid-template-columns: repeat(3, 1fr); } .cat-card:first-child { grid-column: span 3; } .hamburger { display: none; } }
   @media (max-width: 639px) { .hamburger { display: flex; } .nav-right .nav-btn:not(.gold) { display: none; } .stats-bar { grid-template-columns: repeat(2, 1fr); } }
 `;const CATEGORIES = [
-  { id: "yacht", icon: "⛵", name: "游艇出海", en: "Yacht Charter", count: 12 },
-  { id: "villa", icon: "🏛️", name: "奢华别墅", en: "Luxury Villa", count: 8 },
-  { id: "car", icon: "🚘", name: "豪华包车", en: "Private Transfer", count: 6 },
+  { id: "yacht", icon: "⛵", name: "游艇出海", en: "Yacht Charter", count: 12, cover: "https://i.ibb.co/zVD2W28k/photo-2026-06-10-00-59-12.jpg" },
+  { id: "villa", icon: "🏛️", name: "奢华别墅", en: "Luxury Villa", count: 8, cover: "https://i.ibb.co/bgT6WtC1/photo-2026-06-10-00-59-11.jpg" },
+  { id: "car", icon: "🚘", name: "豪华包车", en: "Private Transfer", count: 6, cover: "https://i.ibb.co/ZR7RNTF6/photo-2026-06-10-00-59-09.jpg" },
   { id: "spa", icon: "💆", name: "顶级SPA", en: "Luxury Spa", count: 15 },
   { id: "photo", icon: "📸", name: "旅拍写真", en: "Travel Photo", count: 10 },
   { id: "heli", icon: "🚁", name: "直升机", en: "Helicopter", count: 3 },
@@ -1671,7 +1671,10 @@ images: [
         <div className="cat-grid">
           {CATEGORIES.map((cat) => (
             <div key={cat.id} className="cat-card" onClick={() => { setSelectedCat(cat.id); navigate("products"); }}>
-              <div className="cat-bg">{cat.icon}</div>
+              {cat.cover
+  ? <img src={cat.cover} alt={cat.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.5 }} />
+  : <div className="cat-bg">{cat.icon}</div>
+}
               <div className="cat-gradient" />
               <div className="cat-count">{cat.count}</div>
               <div className="cat-content">
