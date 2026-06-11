@@ -1646,7 +1646,11 @@ images: [
         <div className="hero-content">
           <div className="hero-label">Phuket Luxury Bespoke</div>
           <h1 className="hero-title">隐海 <span>YINSEA</span></h1>
-          <div className="hero-subtitle-cn">隐海 · 普吉岛高端定制</div>
+          <div style={{ marginBottom: 24 }}>
+  <div style={{ fontSize: "clamp(18px,4.5vw,26px)", fontWeight: 300, color: "rgba(245,240,232,0.9)", letterSpacing: "0.2em", lineHeight: 1.5, fontFamily: "var(--font-cn)" }}>隐于海之深处</div>
+  <div style={{ width: 24, height: 1, background: "rgba(201,169,110,0.5)", margin: "8px 0" }} />
+  <div style={{ fontSize: "clamp(18px,4.5vw,26px)", fontWeight: 300, color: "rgba(245,240,232,0.5)", letterSpacing: "0.2em", lineHeight: 1.5, fontFamily: "var(--font-cn)" }}>寻得奢华本真</div>
+</div>
           <p className="hero-desc">专为高净值旅行者甄选普吉岛最稀缺的体验资源。游艇、别墅、定制行程，每一刻都是专属奢华。</p>
           <div className="hero-actions">
             <button className="btn-primary" onClick={() => navigate("products")}>探索产品库</button>
