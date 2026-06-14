@@ -231,6 +231,60 @@ const STYLE = `
 
 const PRODUCTS = [
   {
+    id: 30, cat: "yacht", status: "avail",
+    name: "Ferretti 80 Sofia豪华游艇", nameEn: "Ferretti 80 Sofia Luxury Yacht",
+    emoji: "⛵",
+    images: [
+      "https://i.ibb.co/hJzP5WhQ/1705553725-1-YACHT-FERRETTI-80-SOFIA-003.jpg",
+      "https://i.ibb.co/Xxk99HNf/1705553725-2-YACHT-FERRETTI-80-SOFIA-002.jpg",
+      "https://i.ibb.co/Ng68Th0m/1705553725-3-YACHT-FERRETTI-80-SOFIA-004.jpg",
+      "https://i.ibb.co/G3B5NVxv/1705553831-4-YACHT-FERRETTI-80-SAFARI-005.jpg",
+      "https://i.ibb.co/VyFtX6V/1705553831-5-YACHT-FERRETTI-80-SOFIA-006.jpg",
+      "https://i.ibb.co/vvZtS91J/1705553831-7-YACHT-FERRETTI-80-SOFIA-008.jpg",
+      "https://i.ibb.co/6R3VXtRF/1705553831-8-YACHT-FERRETTI-80-SOFIA-009.jpg",
+      "https://i.ibb.co/Txm42jb8/1705553831-9-YACHT-FERRETTI-80-SOFIA-010.jpg",
+    ],
+    desc: "Ferretti 80 Sofia豪华游艇，24.5米，2021年翻新，4间客舱可住8人，日间最多25人。含泰式精致午餐+全套水上玩具（充气泳池/SUP/滑水板/钓鱼装备），价格含7%增值税。",
+    retail: 190000, agent: 171000, cost: 161500,
+    includes: [
+      "8小时游艇全程使用",
+      "燃油费（按行程）",
+      "专业船长/船员/女服务员",
+      "免费水/软饮/果汁/茶咖啡/小吃/水果",
+      "泰式精致午餐",
+      "7%增值税及适用政府税费",
+      "充气泳池/2个SUP桨板/拖曳水上沙发/滑水板/跪板",
+      "30套浮潜装备/4根底钓竿/2根拖钓竿",
+    ],
+    excludes: [
+      "水上摩托艇（额外10,000 THB/天）",
+    ],
+    suppliers: [
+      { name: "PL", price: 161500 },
+    ],
+    notes: [
+      "价格含7%增值税，报价透明无隐藏费用",
+      "含泰式精致午餐是差异化卖点",
+      "4间客舱：2间特大床+2间双人床，过夜最多8人",
+      "皮皮岛/拉查岛9小时行程193,750为最高价",
+      "水上摩托艇需额外加收10,000泰铢/天",
+    ],
+    faq: [
+      { q: "含午餐吗？", a: "含！提供全天泰式精致午餐，这是本船的特色之一。" },
+      { q: "最多坐几人？", a: "一日游最多25人，过夜包船最多8人（4间客舱）。" },
+      { q: "半日游可以去哪？", a: "半日游4小时可选纳卡岛（112,500）、攀牙湾+宏岛或开岛（118,750）。" },
+      { q: "全日游最远去哪？", a: "可选皮皮岛或拉查岛+迈顿岛9小时行程，193,750泰铢。" },
+      { q: "有水上摩托艇吗？", a: "有，需额外加收10,000泰铢/天。" },
+    ],
+    itinerary: "码头登船(09:00) → 巡游选定航线（纳卡岛/攀牙湾/皮皮岛等）→ 浮潜及水上玩具体验 → 泰式精致午餐 → 钓鱼体验 → 返航(17:00/18:00)",
+    materials: [
+      "Ferretti Sofia游艇实拍图8张",
+      "小红书推广文案（含午餐豪华版）",
+      "朋友圈推广文案",
+      "半日/全日游价格对比表",
+    ],
+  },
+  {
     id: 28, cat: "yacht", status: "avail",
     name: "Princess 65英尺Oceana号游艇", nameEn: "Princess 65ft Oceana Yacht",
     emoji: "⛵",
