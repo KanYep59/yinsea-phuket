@@ -231,6 +231,62 @@ const STYLE = `
 
 const PRODUCTS = [
   {
+    id: 32, cat: "yacht", status: "avail",
+    name: "KATI Princess S65游艇", nameEn: "KATI Princess S65 Yacht",
+    emoji: "⛵",
+    images: [
+      "https://i.ibb.co/XcSCGxs/1704511548-2-YACHT-KATI-Princess-S65-002.jpg",
+      "https://i.ibb.co/R4Q5hT4Z/1704511548-3-YACHT-KATI-Princess-S65-005.jpg",
+      "https://i.ibb.co/t0q71yf/1704511548-4-YACHT-KATI-Princess-S65-004.jpg",
+      "https://i.ibb.co/BVgHPkwB/1704511548-5-YACHT-KATI-Princess-S65-006.jpg",
+      "https://i.ibb.co/LdJZk3WB/1704511548-6-YACHT-KATI-Princess-S65-010.jpg",
+      "https://i.ibb.co/7dMkvdjt/1704511629-8-YACHT-KATI-Princess-S65-009.jpg",
+      "https://i.ibb.co/8g85ThTb/1704511629-9-YACHT-KATI-Princess-S65-011.jpg",
+      "https://i.ibb.co/21nf5YRL/1704512857-7-YACHT-KATI-Princess-S65-007.jpg",
+      "https://i.ibb.co/yFYj3PRN/1704513715-1-YACHT-KATI-Princess-S65-001.jpg",
+    ],
+    desc: "KATI Princess S65豪华游艇，65英尺，2017年建造，3间客舱3浴室，日间最多12人，过夜最多6人。提供半日/全日/多日豪华套餐，巡航速度20节，可达攀牙湾、皮皮岛、甲米等热门航线。",
+    retail: 550000, agent: 495000, cost: 467500,
+    includes: [
+      "游艇全程使用",
+      "码头接送",
+      "专业船长及3-4名船员",
+      "水果/小吃/软饮/啤酒/饮用水",
+      "国家公园门票",
+      "浮潜装备/毛巾/救生衣/保险",
+    ],
+    excludes: [
+      "午餐（可选，1,500 THB/人起）",
+      "燃油附加费（超4小时，25,000 THB/小时）",
+      "船员小费",
+    ],
+    suppliers: [
+      { name: "PL", price: 467500 },
+    ],
+    notes: [
+      "半日游淡季262,500/旺季325,000；全日游淡季300,000/旺季362,500",
+      "过夜套餐3-4间客舱：24H淡季450,000/旺季543,750",
+      "7天6夜最高2,537,500泰铢（旺季）",
+      "长期过夜超5晚改为最多4人2间客舱",
+      "巡航速度20节，比同类游艇更快到达目的地",
+    ],
+    faq: [
+      { q: "最多坐几人？", a: "日间最多12人，过夜最多6人（3间客舱），5晚以上改为最多4人（2间客舱）。" },
+      { q: "全日游可以去哪？", a: "攀牙湾、甲米宏岛、皮皮岛、拉查岛、迈顿岛、凯岛，8小时10:00-18:00。" },
+      { q: "半日游多少钱？", a: "淡季（5-10月）262,500，旺季（11-4月）325,000。" },
+      { q: "可以多日游吗？", a: "支持2天1夜至7天6夜套餐，价格600,000至2,537,500泰铢（视季节）。" },
+      { q: "燃油附加费怎么算？", a: "每日超过4小时使用发动机，每小时加收25,000泰铢。" },
+    ],
+    itinerary: "码头接送登船(10:00) → 巡游选定航线（攀牙湾/皮皮岛/拉查岛等）→ 浮潜及岛屿停靠 → 船上小吃饮品 → 返航(18:00)或过夜",
+    materials: [
+      "KATI Princess S65游艇实拍图9张",
+      "小红书推广文案（私密小团体版）",
+      "朋友圈推广文案",
+      "多日游套餐价格表",
+      "抖音短视频脚本",
+    ],
+  },
+  {
     id: 31, cat: "yacht", status: "avail",
     name: "蒙特卡洛86超级游艇", nameEn: "BAYC Asia Monte Carlo 86 Superyacht",
     emoji: "⛵",
