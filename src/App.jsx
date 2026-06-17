@@ -231,6 +231,61 @@ const STYLE = `
 
 const PRODUCTS = [
   {
+    id: 46, cat: "yacht", status: "avail",
+    name: "REAL 2豹式39英尺帆船", nameEn: "REAL 2 Leopard 39 Catamaran Ao Por",
+    emoji: "⛵",
+    images: [
+      "https://i.ibb.co/LDfgL7gr/1707792277-1-DJI-0227-Enhanced-NR.jpg",
+      "https://i.ibb.co/4wpHmyXy/1707792317-2-Sunny-Leopard38-180621-0029-0.jpg",
+      "https://i.ibb.co/kszGHCrk/1707792317-3-Sunny-Leopard38-180621-0026.jpg",
+      "https://i.ibb.co/Mk4P24QZ/1707792395-42-S5-A0890-Enhanced-NR.jpg",
+      "https://i.ibb.co/wZhKdgKC/1707792395-52-S5-A0897-Enhanced-NR.jpg",
+      "https://i.ibb.co/tM9fJWDH/1707792501-7-IMG-6763.jpg",
+      "https://i.ibb.co/5hBDk2fY/1707792501-62-S5-A0761-Enhanced-NR.jpg",
+      "https://i.ibb.co/3mWvKpfB/1707792584-9-IMG-6769.jpg",
+      "https://i.ibb.co/dJWT4dxd/1707792584-82-S5-A0649-Enhanced-NR.jpg",
+    ],
+    desc: "REAL 2豹式Leopard 39双体帆船，2023年翻新，4间客舱2浴室全空调，最多19人。提供全年半日/全日游，含往返接送+午餐+海洋公园+充气玩具+蹦床，以4人为基准定价，超出每人1,875泰铢。",
+    retail: 48000, agent: 43200, cost: 40800,
+    includes: [
+      "往返接送",
+      "岛屿费及海洋国家公园",
+      "旅行保险",
+      "小吃及午餐",
+      "饮用水/软饮/新鲜水果",
+      "充气玩具",
+      "音响系统/空调/蹦床/厨房",
+    ],
+    excludes: [
+      "超4人每人加1,875 THB（最多19人）",
+    ],
+    suppliers: [
+      { name: "PL", price: 40800 },
+    ],
+    notes: [
+      "价格基于4人：半日游37,187.5/全日游47,812.5（全年统一价）",
+      "超出4人每人加1,875泰铢，最多19人",
+      "2023年翻新，4间客舱2浴室全空调，私密感强",
+      "含午餐+往返接送+海洋公园，全包服务",
+      "Ao Por出发，适合普吉岛东北部客户",
+    ],
+    faq: [
+      { q: "价格基于几人？", a: "基于4人定价，半日游37,187.5/全日游47,812.5泰铢，超出每人加1,875泰铢，最多19人。" },
+      { q: "有客舱空调吗？", a: "有！4间客舱2浴室全配空调，是同类帆船中少见的高配置。" },
+      { q: "含午餐吗？", a: "全日游含午餐，另有小吃、软饮、新鲜水果。" },
+      { q: "从哪里出发？", a: "常驻Ao Por码头，在纳卡诺伊、卡伊和攀牙湾提供游船服务。" },
+      { q: "有蹦床吗？", a: "有！配备船上蹦床，是中国游客最喜欢的娱乐设施之一。" },
+    ],
+    itinerary: "往返接送至Ao Por码头 → 登船出发 → 纳卡诺伊/卡伊岛/攀牙湾巡游 → 浮潜及充气玩具/蹦床体验 → 船上午餐 → 返航",
+    materials: [
+      "REAL 2豹式帆船实拍图9张",
+      "小红书推广文案（豪华帆船空调舱版）",
+      "朋友圈推广文案",
+      "半日/全日游价格对比表",
+      "抖音短视频脚本",
+    ],
+  },
+  {
     id: 45, cat: "yacht", status: "avail",
     name: "Senna 47英尺双体帆船", nameEn: "Senna 47ft Catamaran Phuket",
     emoji: "⛵",
