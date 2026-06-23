@@ -4142,7 +4142,7 @@ function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, se
         p.nameEn.toLowerCase().includes("moon glider") ||
         p.nameEn.toLowerCase().includes("astondoa") ||
         p.nameEn.toLowerCase().includes("velasco") ||
-        p.nameEn.toLowerCase().includes("majesty 48") ||
+        p.nameEn.toLowerCase().includes("majesty 48")
       );
     }
    if (yachtSub === "sailing") {
