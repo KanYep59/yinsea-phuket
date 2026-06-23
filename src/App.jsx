@@ -4538,3 +4538,4 @@ function Footer({ navigate }) {
     </footer>
   );
 }
+
