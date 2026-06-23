@@ -4125,7 +4125,7 @@ images: [
 function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, setSearchQ, statusBadge, setSelectedProduct }) {
   const [yachtSub, setYachtSub] = useState("all");
 
-  const sortedProducts = selectedCat === "yacht"
+  const sortedProducts = (selectedCat === "yacht" || selectedCat === "villa")
     ? [...products].sort((a, b) => b.retail - a.retail)
     : products;
 
