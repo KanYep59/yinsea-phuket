@@ -4125,7 +4125,11 @@ images: [
 function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, setSearchQ, statusBadge, setSelectedProduct }) {
   const [yachtSub, setYachtSub] = useState("all");
 
-  const filteredByYachtSub = products.filter(p => {
+  const sortedProducts = selectedCat === "yacht"
+    ? [...products].sort((a, b) => b.retail - a.retail)
+    : products;
+
+  const filteredByYachtSub = sortedProducts.filter(p => {
     if (selectedCat !== "yacht") return true;
     if (yachtSub === "all") return true;
     if (yachtSub === "motor") {
