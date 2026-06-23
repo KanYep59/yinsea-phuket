@@ -4130,28 +4130,23 @@ function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, se
     if (yachtSub === "all") return true;
     if (yachtSub === "motor") {
       return p.nameEn && (
-        p.nameEn.toLowerCase().includes("yacht") ||
-        p.nameEn.toLowerCase().includes("motor") ||
-        p.nameEn.toLowerCase().includes("power") ||
-        p.nameEn.toLowerCase().includes("ferretti") ||
-        p.nameEn.toLowerCase().includes("majesty") ||
-        p.nameEn.toLowerCase().includes("princess") ||
-        p.nameEn.toLowerCase().includes("monte carlo") ||
-        p.nameEn.toLowerCase().includes("astondoa") ||
         p.nameEn.toLowerCase().includes("demarest") ||
-        p.nameEn.toLowerCase().includes("olympia") ||
-        p.nameEn.toLowerCase().includes("reinwood") ||
-        p.nameEn.toLowerCase().includes("moon glider") ||
-        p.nameEn.toLowerCase().includes("velasco") ||
-        p.nameEn.toLowerCase().includes("aquila") ||
-        p.nameEn.toLowerCase().includes("kati") ||
         p.nameEn.toLowerCase().includes("happy ours") ||
         p.nameEn.toLowerCase().includes("treasure") ||
+        p.nameEn.toLowerCase().includes("olympia") ||
+        p.nameEn.toLowerCase().includes("oceana") ||
+        p.nameEn.toLowerCase().includes("ferretti") ||
         p.nameEn.toLowerCase().includes("bayc") ||
-        p.nameEn.toLowerCase().includes("oceana")
+        p.nameEn.toLowerCase().includes("kati princess") ||
+        p.nameEn.toLowerCase().includes("reinwood") ||
+        p.nameEn.toLowerCase().includes("moon glider") ||
+        p.nameEn.toLowerCase().includes("astondoa") ||
+        p.nameEn.toLowerCase().includes("velasco") ||
+        p.nameEn.toLowerCase().includes("majesty 48") ||
+        p.nameEn.toLowerCase().includes("aumakua")
       );
     }
-    if (yachtSub === "sailing") {
+   if (yachtSub === "sailing") {
       return p.nameEn && (
         p.nameEn.toLowerCase().includes("catamaran") ||
         p.nameEn.toLowerCase().includes("sailing") ||
@@ -4161,12 +4156,11 @@ function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, se
         p.nameEn.toLowerCase().includes("delight") ||
         p.nameEn.toLowerCase().includes("calypso") ||
         p.nameEn.toLowerCase().includes("shangani") ||
-        p.nameEn.toLowerCase().includes("aumakua") ||
         p.nameEn.toLowerCase().includes("papakang") ||
-        p.nameEn.toLowerCase().includes("coco") ||
+        p.nameEn.toLowerCase().includes("coco 40") ||
         p.nameEn.toLowerCase().includes("blue indigo") ||
-        p.nameEn.toLowerCase().includes("summer") ||
-        p.nameEn.toLowerCase().includes("senna") ||
+        p.nameEn.toLowerCase().includes("summer 47") ||
+        p.nameEn.toLowerCase().includes("senna 47") ||
         p.nameEn.toLowerCase().includes("real 2") ||
         p.nameEn.toLowerCase().includes("shashani") ||
         p.nameEn.toLowerCase().includes("sunwind") ||
