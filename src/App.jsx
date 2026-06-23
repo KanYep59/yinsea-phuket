@@ -4123,6 +4123,66 @@ images: [
 }
 
 function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, setSearchQ, statusBadge, setSelectedProduct }) {
+  const [yachtSub, setYachtSub] = useState("all");
+
+  const filteredByYachtSub = products.filter(p => {
+    if (selectedCat !== "yacht") return true;
+    if (yachtSub === "all") return true;
+    if (yachtSub === "motor") {
+      return p.nameEn && (
+        p.nameEn.toLowerCase().includes("yacht") ||
+        p.nameEn.toLowerCase().includes("motor") ||
+        p.nameEn.toLowerCase().includes("power") ||
+        p.nameEn.toLowerCase().includes("ferretti") ||
+        p.nameEn.toLowerCase().includes("majesty") ||
+        p.nameEn.toLowerCase().includes("princess") ||
+        p.nameEn.toLowerCase().includes("monte carlo") ||
+        p.nameEn.toLowerCase().includes("astondoa") ||
+        p.nameEn.toLowerCase().includes("demarest") ||
+        p.nameEn.toLowerCase().includes("olympia") ||
+        p.nameEn.toLowerCase().includes("reinwood") ||
+        p.nameEn.toLowerCase().includes("moon glider") ||
+        p.nameEn.toLowerCase().includes("velasco") ||
+        p.nameEn.toLowerCase().includes("aquila") ||
+        p.nameEn.toLowerCase().includes("kati") ||
+        p.nameEn.toLowerCase().includes("happy ours") ||
+        p.nameEn.toLowerCase().includes("treasure") ||
+        p.nameEn.toLowerCase().includes("bayc") ||
+        p.nameEn.toLowerCase().includes("oceana")
+      );
+    }
+    if (yachtSub === "sailing") {
+      return p.nameEn && (
+        p.nameEn.toLowerCase().includes("catamaran") ||
+        p.nameEn.toLowerCase().includes("sailing") ||
+        p.nameEn.toLowerCase().includes("lagoon") ||
+        p.nameEn.toLowerCase().includes("leopard") ||
+        p.nameEn.toLowerCase().includes("bohemian") ||
+        p.nameEn.toLowerCase().includes("delight") ||
+        p.nameEn.toLowerCase().includes("calypso") ||
+        p.nameEn.toLowerCase().includes("shangani") ||
+        p.nameEn.toLowerCase().includes("aumakua") ||
+        p.nameEn.toLowerCase().includes("papakang") ||
+        p.nameEn.toLowerCase().includes("coco") ||
+        p.nameEn.toLowerCase().includes("blue indigo") ||
+        p.nameEn.toLowerCase().includes("summer") ||
+        p.nameEn.toLowerCase().includes("senna") ||
+        p.nameEn.toLowerCase().includes("real 2") ||
+        p.nameEn.toLowerCase().includes("shashani") ||
+        p.nameEn.toLowerCase().includes("sunwind") ||
+        p.nameEn.toLowerCase().includes("ooseven") ||
+        p.nameEn.toLowerCase().includes("estrella") ||
+        p.nameEn.toLowerCase().includes("fortuna") ||
+        p.nameEn.toLowerCase().includes("mario") ||
+        p.nameEn.toLowerCase().includes("bellina") ||
+        p.nameEn.toLowerCase().includes("wildcat") ||
+        p.nameEn.toLowerCase().includes("amandla") ||
+        p.nameEn.toLowerCase().includes("ocean dream")
+      );
+    }
+    return true;
+  });
+
   return (
     <div style={{ paddingTop: 80 }}>
       <div className="section" style={{ paddingBottom: 0 }}>
@@ -4136,18 +4196,33 @@ function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, se
           {searchQ && <span style={{ cursor: "pointer", color: "var(--fog)" }} onClick={() => setSearchQ("")}>✕</span>}
         </div>
         <div className="filter-tabs">
-          <button className={`filter-tab${selectedCat === "all" ? " active" : ""}`} onClick={() => setSelectedCat("all")}>全部</button>
+          <button className={`filter-tab${selectedCat === "all" ? " active" : ""}`} onClick={() => { setSelectedCat("all"); setYachtSub("all"); }}>全部</button>
           {CATEGORIES.map(c => (
-            <button key={c.id} className={`filter-tab${selectedCat === c.id ? " active" : ""}`} onClick={() => setSelectedCat(c.id)}>
+            <button key={c.id} className={`filter-tab${selectedCat === c.id ? " active" : ""}`} onClick={() => { setSelectedCat(c.id); setYachtSub("all"); }}>
               {c.icon} {c.name}
             </button>
           ))}
         </div>
+        {selectedCat === "yacht" && (
+          <div className="filter-tabs" style={{ marginTop: -8 }}>
+            <button className={`filter-tab${yachtSub === "all" ? " active" : ""}`} onClick={() => setYachtSub("all")}>
+              全部游艇
+            </button>
+            <button className={`filter-tab${yachtSub === "motor" ? " active" : ""}`} onClick={() => setYachtSub("motor")}
+              style={{ background: yachtSub === "motor" ? "rgba(201,169,110,0.2)" : "", borderColor: yachtSub === "motor" ? "var(--gold)" : "", color: yachtSub === "motor" ? "var(--gold)" : "" }}>
+              🚢 豪华游艇
+            </button>
+            <button className={`filter-tab${yachtSub === "sailing" ? " active" : ""}`} onClick={() => setYachtSub("sailing")}
+              style={{ background: yachtSub === "sailing" ? "rgba(201,169,110,0.2)" : "", borderColor: yachtSub === "sailing" ? "var(--gold)" : "", color: yachtSub === "sailing" ? "var(--gold)" : "" }}>
+              ⛵ 豪华帆船
+            </button>
+          </div>
+        )}
       </div>
       <div className="section" style={{ paddingTop: 16 }}>
-        {products.length === 0
-          ? <div className="empty-state"><div style={{fontSize:48}}>🔍</div><div style={{marginTop:16}}>未找到相关产品</div></div>
-          : <div className="product-grid">{products.map(p => <ProductCard key={p.id} product={p} role={role} statusBadge={statusBadge} onClick={() => setSelectedProduct(p)} />)}</div>
+        {filteredByYachtSub.length === 0
+          ? <div className="empty-state"><div style={{ fontSize: 48 }}>🔍</div><div style={{ marginTop: 16 }}>未找到相关产品</div></div>
+          : <div className="product-grid">{filteredByYachtSub.map(p => <ProductCard key={p.id} product={p} role={role} statusBadge={statusBadge} onClick={() => setSelectedProduct(p)} />)}</div>
         }
       </div>
     </div>
