@@ -98,10 +98,10 @@ const STYLE = `
   .product-img-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(10,12,15,0.6)); }
   .product-badges { position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; }
   .badge { font-size: 9px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; }
-  .badge-avail { background: rgba(76,175,125,0.2); border: 1px solid rgba(76,175,125,0.5); color: #4caf7d; }
-  .badge-hot { background: rgba(232,168,56,0.2); border: 1px solid rgba(232,168,56,0.5); color: #e8a838; }
-  .badge-full { background: rgba(224,85,85,0.2); border: 1px solid rgba(224,85,85,0.5); color: #e05555; }
-  .badge-cat { background: rgba(201,169,110,0.1); border: 1px solid rgba(201,169,110,0.3); color: var(--gold); }
+  .badge-avail { background: #4caf7d; border: 1px solid #4caf7d; color: #fff; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+  .badge-hot { background: #e8a838; border: 1px solid #e8a838; color: #fff; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+  .badge-full { background: #e05555; border: 1px solid #e05555; color: #fff; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+  .badge-cat { background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-weight: 400; backdrop-filter: blur(4px); }
   .product-body { padding: 16px; }
   .product-name { font-family: var(--font-cn); font-size: 18px; font-weight: 400; color: var(--pearl); letter-spacing: 0.05em; margin-bottom: 4px; }
   .product-name-en { font-size: 11px; font-weight: 300; color: var(--mist); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px; }
