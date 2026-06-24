@@ -4098,7 +4098,6 @@ images: [
               <div className="cat-gradient" />
               <div className="cat-count">{cat.count}</div>
               <div className="cat-content">
-                <div className="cat-icon">{cat.icon}</div>
                 <div className="cat-name">{cat.name}</div>
                 <div className="cat-name-en">{cat.en}</div>
               </div>
