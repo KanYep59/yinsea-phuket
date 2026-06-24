@@ -220,13 +220,13 @@ const STYLE = `
   @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } .cat-grid { grid-template-columns: repeat(3, 1fr); } .cat-card:first-child { grid-column: span 3; } .hamburger { display: none; } }
   @media (max-width: 639px) { .hamburger { display: flex; } .nav-right .nav-btn:not(.gold) { display: none; } .stats-bar { grid-template-columns: repeat(2, 1fr); } }
 `;const CATEGORIES = [
-  { id: "yacht", icon: "⛵", name: "游艇出海", en: "Yacht Charter", count: 12, cover: "https://i.ibb.co/zVD2W28k/photo-2026-06-10-00-59-12.jpg" },
-  { id: "villa", icon: "🏛️", name: "奢华别墅", en: "Luxury Villa", count: 8, cover: "https://i.ibb.co/bgT6WtC1/photo-2026-06-10-00-59-11.jpg" },
-  { id: "car", icon: "🚘", name: "豪华包车", en: "Private Transfer", count: 6, cover: "https://i.ibb.co/ZR7RNTF6/photo-2026-06-10-00-59-09.jpg" },
-  { id: "spa", icon: "💆", name: "顶级SPA", en: "Luxury Spa", count: 15 },
-  { id: "photo", icon: "📸", name: "旅拍写真", en: "Travel Photo", count: 10 },
-  { id: "heli", icon: "🚁", name: "直升机", en: "Helicopter", count: 3 },
-  { id: "custom", icon: "✨", name: "高端定制", en: "Bespoke", count: 5 },
+  { id: "yacht", icon: "⛵", name: "游艇出海", en: "Yacht Charter", cover: "https://i.ibb.co/zVD2W28k/photo-2026-06-10-00-59-12.jpg" },
+  { id: "villa", icon: "🏛️", name: "奢华别墅", en: "Luxury Villa", cover: "https://i.ibb.co/bgT6WtC1/photo-2026-06-10-00-59-11.jpg" },
+  { id: "car", icon: "🚘", name: "豪华包车", en: "Private Transfer", cover: "https://i.ibb.co/ZR7RNTF6/photo-2026-06-10-00-59-09.jpg" },
+  { id: "spa", icon: "💆", name: "顶级SPA", en: "Luxury Spa" },
+  { id: "photo", icon: "📸", name: "旅拍写真", en: "Travel Photo" },
+  { id: "heli", icon: "🚁", name: "直升机", en: "Helicopter" },
+  { id: "custom", icon: "✨", name: "高端定制", en: "Bespoke" },
 ];
 
 const PRODUCTS = [
@@ -4096,7 +4096,7 @@ images: [
   : <div className="cat-bg">{cat.icon}</div>
 }
               <div className="cat-gradient" />
-              <div className="cat-count">{cat.count}</div>
+              <div className="cat-count">{PRODUCTS.filter(p => p.cat === cat.id).length}</div>
               <div className="cat-content">
                 <div className="cat-name">{cat.name}</div>
                 <div className="cat-name-en">{cat.en}</div>
