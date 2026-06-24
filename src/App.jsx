@@ -151,7 +151,7 @@ const STYLE = `
   .contact-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: var(--r); font-family: var(--font-ui); font-size: 13px; font-weight: 400; letter-spacing: 0.1em; cursor: pointer; border: none; transition: all 0.2s; }
   .contact-wechat { background: #07c160; color: #fff; }
   .contact-whatsapp { background: #25d366; color: #fff; }
-  .back-btn { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 300; color: var(--mist); cursor: pointer; padding: 8px 24px; background: none; border: none; transition: color 0.2s; }
+.back-btn { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 400; color: var(--pearl); cursor: pointer; padding: 12px 24px; background: none; border: none; transition: color 0.2s; letter-spacing: 0.05em; }
   .back-btn:hover { color: var(--gold); }
   .search-bar { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 10px 16px; margin-bottom: 20px; transition: border-color 0.2s; }
   .search-bar:focus-within { border-color: var(--gold); }
