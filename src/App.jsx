@@ -3926,7 +3926,60 @@ images: [
     excludes: ["额外延时", "地面安排"],
     materials: ["空中实拍图", "INS风推广视频"]
   },
-
+{
+    id: 61, cat: "photo", status: "avail",
+    name: "普吉岛胶片感情绪旅拍", nameEn: "Phuket Film Style Travel Photography",
+    emoji: "📸",
+    images: [
+      "https://i.ibb.co/mVftcPGz/photo-2026-06-26-00-49-38.jpg",
+      "https://i.ibb.co/zT52kBRJ/photo-2026-06-26-00-49-41.jpg",
+      "https://i.ibb.co/b0NgWjq/photo-2026-06-26-00-49-42.jpg",
+      "https://i.ibb.co/PfW2b7w/photo-2026-06-26-00-49-43.jpg",
+      "https://i.ibb.co/wN7x7vvx/photo-2026-06-26-00-49-44.jpg",
+      "https://i.ibb.co/5Xn87Dyq/photo-2026-06-26-00-49-45-2.jpg",
+      "https://i.ibb.co/QFkw7hnV/photo-2026-06-26-00-49-45.jpg",
+      "https://i.ibb.co/mVbLRbBX/photo-2026-06-26-00-49-46.jpg",
+      "https://i.ibb.co/vvHXMvcR/photo-2026-06-26-00-49-47.jpg",
+      "https://i.ibb.co/B5BJMbYx/photo-2026-06-26-00-49-48.jpg",
+    ],
+    desc: "胶片感电影感自然情绪松弛状态。Sony a7m4加CCD加iPhone 17 Pro三机拍摄，注重人与环境的真实连接。单人群像亲子纪实旅拍多种风格，底片全送加精修交付。",
+    retail: 18500, agent: 16650, cost: 14800,
+    includes: [
+      "1H：80张底片全送，5张精修（3200 THB）",
+      "2H：180张底片全送，10张精修（5700 THB）",
+      "半天4H：300张底片全送，15张精修（10000 THB）",
+      "全天8H：600张底片全送，24张精修（18500 THB）",
+      "Sony a7m4加CCD加iPhone 17 Pro三机拍摄",
+      "百度网盘底片交付24H内",
+    ],
+    excludes: [
+      "额外精修100 THB每张",
+      "交通费卡马拉300芭东卡伦卡塔500拉威麦考900 THB",
+      "场地费门票费餐食费提前告知",
+      "多人加拍500 THB每人",
+    ],
+    suppliers: [
+      { name: "Savy不会拍", price: 14800 },
+    ],
+    notes: [
+      "普吉镇邦涛苏林区域无交通费",
+      "多人拍摄每人加500泰铢",
+      "50%定金确认订单拍摄结束付尾款",
+      "可免费改期4天前取消全退48H前退50%48H内不退定金",
+    ],
+    faq: [
+      { q: "拍摄风格是什么", a: "胶片感电影感自然情绪松弛状态，注重人与环境的真实连接，捕捉自然流露的瞬间。" },
+      { q: "用什么设备拍摄", a: "Sony a7m4佳能ixus210机皇CCD iPhone 17 Pro三机拍摄底片全送。" },
+      { q: "多人拍摄怎么收费", a: "以上为1人价格多一人加500泰铢每人。" },
+      { q: "照片什么时候交付", a: "尾款付清后24H内发送底片百度网盘，自行选片后48H内返精修图。" },
+    ],
+    itinerary: "提前沟通时间地点风格 → 支付50%定金确认 → 拍摄当天按约定时间开始 → 结束后付尾款 → 24H内收底片 → 选片后48H内收精修图",
+    materials: [
+      "旅拍样片10张",
+      "小红书推广文案胶片情绪旅拍版",
+      "朋友圈推广文案",
+    ],
+  },
   {
     id: 5, cat: "photo", status: "avail",
     name: "小红书爆款海岛旅拍", nameEn: "Island Photography Session",
