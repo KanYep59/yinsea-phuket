@@ -224,7 +224,7 @@ const STYLE = `
   { id: "villa", icon: "🏛️", name: "奢华别墅", en: "Luxury Villa", cover: "https://i.ibb.co/bgT6WtC1/photo-2026-06-10-00-59-11.jpg" },
   { id: "car", icon: "🚘", name: "豪华包车", en: "Private Transfer", cover: "https://i.ibb.co/ZR7RNTF6/photo-2026-06-10-00-59-09.jpg" },
   { id: "spa", icon: "💆", name: "顶级SPA", en: "Luxury Spa" },
-  { id: "photo", icon: "📸", name: "旅拍写真", en: "Travel Photo" },
+  { id: "photo", icon: "📸", name: "旅拍写真", en: "Travel Photo", cover: "https://i.ibb.co/mVftcPGz/photo-2026-06-26-00-49-38.jpg" },
   { id: "heli", icon: "🚁", name: "直升机", en: "Helicopter" },
   { id: "custom", icon: "✨", name: "高端定制", en: "Bespoke" },
 ];
