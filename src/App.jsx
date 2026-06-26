@@ -3980,7 +3980,7 @@ images: [
       <nav className="nav">
         <div className="nav-brand" onClick={() => navigate("home")} style={{ cursor: "pointer" }}>
           <span className="nav-brand-cn">隐海</span>
-          <span className="nav-brand-en">YINSEA PHUKET</span>
+          <span className="nav-brand-en">YINSEA PHUKET</span> 
         </div>
         <div className="nav-right">
           {role !== "guest" && <span className="nav-role-badge">{role === "admin" ? "内部员工" : "代理商"}</span>}
