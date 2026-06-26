@@ -3980,19 +3980,7 @@ images: [
       "朋友圈推广文案",
     ],
   },
-  {
-    id: 5, cat: "photo", status: "avail",
-    name: "小红书爆款海岛旅拍", nameEn: "Island Photography Session",
-    emoji: "📸", desc: "专业摄影师配合顶级场地，涵盖游艇、别墅、泳池、日落海滩，成片率100%，当天精修出图。",
-    retail: 5800, agent: 4800, cost: 3500,
-    suppliers: [{ name: "岛上摄影工作室", price: 3500 }, { name: "自由摄影师B", price: 3800 }],
-    notes: ["摄影师中文沟通，客户喜爱度极高"],
-    faq: [{ q: "几张精修图?", a: "30-50张精修，原图全留。" }],
-    itinerary: "造型准备1H → 游艇场景拍摄 → 别墅泳池写真 → 日落海滩收尾",
-    includes: ["摄影师", "30+精修图", "当日交付"],
-    excludes: ["服装", "化妆造型"],
-    materials: ["样片集锦", "小红书专属推广套件"]
-  },
+  
 ];export default function App() {
   const [role, setRole] = useState("guest");
   const [page, setPage] = useState("home");
