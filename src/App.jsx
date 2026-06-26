@@ -4112,7 +4112,10 @@ images: [
           <h2 className="section-title">精选推荐</h2>
         </div>
         <div className="product-grid">
-          {PRODUCTS.slice(0, 3).map(p => (
+          {["villa", "yacht", "photo"].map(catId => {
+  const top = [...PRODUCTS].filter(p => p.cat === catId).sort((a, b) => b.retail - a.retail)[0];
+  return top ? <ProductCard key={top.id} product={top} role={role} statusBadge={statusBadge} onClick={() => { setSelectedProduct(top); navigate("detail"); }} /> : null;
+})}
             <ProductCard key={p.id} product={p} role={role} statusBadge={statusBadge} onClick={() => { setSelectedProduct(p); navigate("detail"); }} />
           ))}
         </div>
