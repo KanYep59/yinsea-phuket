@@ -4114,6 +4114,9 @@ images: [
         </div>
         <div className="product-grid">
           {["villa", "yacht", "photo"].map(catId => {
+  const topProduct = [...PRODUCTS].filter(item => item.cat === catId).sort((a, b) => b.retail - a.retail)[0];
+  return topProduct ? <ProductCard key={topProduct.id} product={topProduct} role={role} statusBadge={statusBadge} onClick={() => { setSelectedProduct(topProduct); navigate("detail"); }} /> : null;
+})}
   const top = [...PRODUCTS].filter(p => p.cat === catId).sort((a, b) => b.retail - a.retail)[0];
   return top ? <ProductCard key={top.id} product={top} role={role} statusBadge={statusBadge} onClick={() => { setSelectedProduct(top); navigate("detail"); }} /> : null;
 })}
