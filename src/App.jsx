@@ -4139,6 +4139,7 @@ images: [
       )}
 
       {page === "home" && <HomePage navigate={navigate} setSelectedCat={setSelectedCat} statusBadge={statusBadge} setSelectedProduct={setSelectedProduct} role={role} />}
+      {page === "partner" && <PartnerPage navigate={navigate} />}
       {page === "about" && <AboutPage navigate={navigate} />}
       {page === "products" && <ProductsPage products={filteredProducts} role={role} selectedCat={selectedCat} setSelectedCat={setSelectedCat} searchQ={searchQ} setSearchQ={setSearchQ} statusBadge={statusBadge} setSelectedProduct={(p) => { setSelectedProduct(p); navigate("detail"); }} />}
       {page === "detail" && selectedProduct && <DetailPage product={selectedProduct} role={role} back={() => navigate("products")} statusBadge={statusBadge} />}
@@ -4380,6 +4381,55 @@ function ProductCard({ product: p, role, statusBadge, onClick }) {
             <div className="supplier-tag">✓ 最低供应: {Math.min(...p.suppliers.map(s => s.price)).toLocaleString()} THB</div>
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+function PartnerPage({ navigate }) {
+  const partners = [
+    { icon: "✈️", title: "旅行顾问", desc: "拥有优质客源的独立顾问或旅行社，希望为客户提供更丰富的普吉岛高端体验。" },
+    { icon: "⛵", title: "游艇 · 别墅", desc: "拥有优质资源的供应商，希望接触更多高净值客户，实现更高效的资源变现。" },
+    { icon: "📱", title: "内容创作者", desc: "在小红书、抖音、微博等平台拥有受众的创作者，与我们共同传递普吉岛的奢华生活方式。" },
+    { icon: "🏨", title: "酒店 · 品牌机构", desc: "希望为高端客群提供更完整度假体验的酒店及品牌，与隐海联合打造专属定制方案。" },
+    { icon: "💼", title: "企业 · 团建", desc: "需要为团队或客户策划高端普吉岛团建、会议及企业招待活动的机构。" },
+    { icon: "✨", title: "其他同行者", desc: "只要认同品质、诚信与共赢的理念，我们愿意倾听任何有意义的合作提案。" },
+  ];
+  return (
+    <div style={{ paddingTop: 56, background: "#080c0f", minHeight: "100vh", color: "#f0ebe2", fontFamily: "Georgia, serif" }}>
+      <div style={{ padding: "80px 40px 60px", borderBottom: "1px solid rgba(201,169,110,0.1)" }}>
+        <div style={{ fontSize: 10, letterSpacing: "0.5em", color: "#c9a96e", textTransform: "uppercase", marginBottom: 20, display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 32, height: 1, background: "#c9a96e" }} />
+          Partnership · 合作计划
+        </div>
+        <div style={{ fontSize: 42, fontWeight: 300, color: "#f0ebe2", lineHeight: 1.1, fontStyle: "italic", marginBottom: 8 }}>Partnership Beyond Business.</div>
+        <div style={{ fontSize: 15, fontWeight: 300, color: "rgba(240,235,226,0.35)", letterSpacing: "0.3em", marginBottom: 28 }}>合作，不止于商业</div>
+        <div style={{ fontSize: 14, color: "rgba(240,235,226,0.45)", lineHeight: 2.2, maxWidth: 600, letterSpacing: "0.05em" }}>我们寻找的不只是合作伙伴，更是拥有相同服务理念与品质追求的同行者。无论您是旅行顾问、酒店、游艇、别墅、品牌机构，还是内容创作者，只要认同长期合作、诚信共赢与卓越服务，我们都期待与您携手，为客户带来超越期待的旅行体验。</div>
+      </div>
+      <div style={{ padding: "56px 40px", borderBottom: "1px solid rgba(201,169,110,0.1)" }}>
+        <div style={{ fontSize: 9, letterSpacing: "0.5em", color: "#c9a96e", textTransform: "uppercase", marginBottom: 32, display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 24, height: 1, background: "#c9a96e" }} />我们期待的伙伴
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 1, background: "rgba(201,169,110,0.08)" }}>
+          {partners.map((p, i) => (
+            <div key={i} style={{ background: "#080c0f", padding: "28px 24px" }}>
+              <div style={{ fontSize: 24, marginBottom: 14 }}>{p.icon}</div>
+              <div style={{ fontSize: 14, fontWeight: 300, color: "#f0ebe2", letterSpacing: "0.08em", marginBottom: 8 }}>{p.title}</div>
+              <div style={{ fontSize: 11, color: "rgba(240,235,226,0.3)", lineHeight: 1.9 }}>{p.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: "56px 40px", borderBottom: "1px solid rgba(201,169,110,0.1)", textAlign: "center" }}>
+        <div style={{ width: 40, height: 1, background: "rgba(201,169,110,0.3)", margin: "0 auto 28px" }} />
+        <div style={{ fontSize: 20, fontWeight: 300, color: "rgba(240,235,226,0.7)", fontStyle: "italic", lineHeight: 1.8, letterSpacing: "0.05em", marginBottom: 28 }}>
+          "真正的合作，<span style={{ color: "#c9a96e" }}>始于信任</span>，成于价值，<span style={{ color: "#c9a96e" }}>共赢于未来</span>。"
+        </div>
+        <div style={{ width: 40, height: 1, background: "rgba(201,169,110,0.3)", margin: "0 auto" }} />
+      </div>
+      <div style={{ padding: "56px 40px", textAlign: "center" }}>
+        <div style={{ fontSize: 20, fontWeight: 300, color: "#f0ebe2", letterSpacing: "0.1em", marginBottom: 8 }}>期待与您携手</div>
+        <div style={{ fontSize: 11, color: "rgba(240,235,226,0.25)", letterSpacing: "0.4em", textTransform: "uppercase", marginBottom: 32 }}>Let's Build Something Extraordinary Together</div>
+        <div style={{ display: "inline-block", padding: "14px 40px", background: "#c9a96e", color: "#080c0f", fontSize: 11, fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", cursor: "pointer" }}>联系我们</div>
       </div>
     </div>
   );
@@ -4664,7 +4714,7 @@ function Footer({ navigate }) {
         </div>
         <div className="footer-links-group">
           <h4>关于我们</h4>
-          {["品牌介绍","合作计划","联系我们","加入团队"].map(l=><a key={l} onClick={l==="品牌介绍" ? ()=>navigate("about") : undefined} style={l==="品牌介绍" ? {cursor:"pointer"} : {}}>{l}</a>)}
+           {["品牌介绍","合作计划","联系我们","加入团队"].map(l=><a key={l} onClick={l==="品牌介绍" ? ()=>navigate("about") : l==="合作计划" ? ()=>navigate("partner") : undefined} style={(l==="品牌介绍"||l==="合作计划") ? {cursor:"pointer"} : {}}>{l}</a>)}
         </div>
       </div>
       <div className="footer-bottom">© 2024 隐海 YINSEA PHUKET · All Rights Reserved</div>
