@@ -4383,6 +4383,41 @@ function ProductCard({ product: p, role, statusBadge, onClick }) {
     </div>
   );
 }
+function AboutPage({ navigate }) {
+  return (
+    <div style={{ paddingTop: 56, background: "#080c0f", minHeight: "100vh", color: "#f0ebe2", fontFamily: "Georgia, serif" }}>
+      <div style={{ padding: "80px 40px 60px", borderBottom: "1px solid rgba(201,169,110,0.1)" }}>
+        <div style={{ fontSize: 10, letterSpacing: "0.5em", color: "#c9a96e", textTransform: "uppercase", marginBottom: 20, display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 32, height: 1, background: "#c9a96e" }} />
+          About Us · 关于我们
+        </div>
+        <div style={{ fontSize: 48, fontWeight: 300, color: "#f0ebe2", lineHeight: 1.1, fontStyle: "italic", marginBottom: 8 }}>Yin Sea · Phuket</div>
+        <div style={{ fontSize: 16, fontWeight: 300, color: "rgba(240,235,226,0.35)", letterSpacing: "0.3em", marginBottom: 28 }}>隐于海之深处，寻得奢华本真</div>
+        <div style={{ fontSize: 14, color: "rgba(240,235,226,0.45)", lineHeight: 2, maxWidth: 520, letterSpacing: "0.05em" }}>隐海是一个专为高净值旅行者打造的普吉岛高端定制平台。我们甄选最稀缺的私密体验，从顶级游艇到私人别墅，从定制行程到专属服务，每一刻都是你的专属奢华。</div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderTop: "1px solid rgba(201,169,110,0.1)" }}>
+        {[
+          { num: "01", en: "Brand Philosophy", cn: "品牌理念", desc: "Less Ordinary. More Extraordinary.\n少一些平凡，多一些非凡。" },
+          { num: "02", en: "Core Advantage", cn: "核心优势", desc: "Beyond Expectations. Beyond Imagination.\n你所期待的，我们已经准备好；你未曾想到的，我们也愿意为你实现。" },
+          { num: "03", en: "Service Promise", cn: "服务承诺", desc: "Above Standards. Beyond Service.\n每一份托付，皆以最高标准回应。" },
+          { num: "04", en: "Our Team", cn: "团队介绍", desc: "Beyond Local. Beyond Ordinary.\n不止于本地，更不止于寻常。" },
+        ].map((item, i) => (
+          <div key={i} style={{ padding: 40, borderRight: i % 2 === 0 ? "1px solid rgba(201,169,110,0.1)" : "none", borderBottom: "1px solid rgba(201,169,110,0.1)" }}>
+            <div style={{ fontSize: 48, fontWeight: 200, color: "rgba(201,169,110,0.12)", lineHeight: 1, marginBottom: 16 }}>{item.num}</div>
+            <div style={{ fontSize: 10, color: "#c9a96e", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 8 }}>{item.en}</div>
+            <div style={{ fontSize: 18, fontWeight: 300, color: "#f0ebe2", letterSpacing: "0.1em", marginBottom: 10 }}>{item.cn}</div>
+            <div style={{ fontSize: 12, color: "rgba(240,235,226,0.35)", lineHeight: 2, letterSpacing: "0.05em", whiteSpace: "pre-line" }}>{item.desc}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding: "60px 40px", textAlign: "center", borderTop: "1px solid rgba(201,169,110,0.1)" }}>
+        <div style={{ fontSize: 22, fontWeight: 300, color: "#f0ebe2", letterSpacing: "0.1em", marginBottom: 8 }}>开启你的专属旅程</div>
+        <div style={{ fontSize: 11, color: "rgba(240,235,226,0.25)", letterSpacing: "0.4em", textTransform: "uppercase", marginBottom: 32 }}>Begin Your Extraordinary Journey</div>
+        <div style={{ display: "inline-block", padding: "14px 40px", background: "#c9a96e", color: "#080c0f", fontSize: 11, fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", cursor: "pointer" }}>联系我们</div>
+      </div>
+    </div>
+  );
+}
 function DetailPage({ product: p, role, back, statusBadge }) {
   const [openFaq, setOpenFaq] = useState(null);
   const [currentImg, setCurrentImg] = useState(0);
