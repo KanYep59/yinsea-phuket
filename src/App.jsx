@@ -4664,7 +4664,7 @@ function Footer({ navigate }) {
         </div>
         <div className="footer-links-group">
           <h4>关于我们</h4>
-          {["品牌介绍","合作代理","联系我们","加入团队"].map(l=><a key={l} onClick={l==="品牌介绍" ? ()=>navigate("about") : undefined} style={l==="品牌介绍" ? {cursor:"pointer"} : {}}>{l}</a>)}
+          {["品牌介绍","合作计划","联系我们","加入团队"].map(l=><a key={l} onClick={l==="品牌介绍" ? ()=>navigate("about") : undefined} style={l==="品牌介绍" ? {cursor:"pointer"} : {}}>{l}</a>)}
         </div>
       </div>
       <div className="footer-bottom">© 2024 隐海 YINSEA PHUKET · All Rights Reserved</div>
