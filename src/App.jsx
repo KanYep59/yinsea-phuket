@@ -4765,7 +4765,7 @@ function Footer({ navigate }) {
       <div className="footer-links">
         <div className="footer-links-group">
           <h4>产品</h4>
-          {["游艇出海","奢华别墅","顶级SPA","直升机","高端定制"].map(l=><a key={l} onClick={()=>navigate("products")}>{l}</a>)}
+          {["游艇出海","奢华别墅","顶级SPA","直升机","隐海定制"].map(l=><a key={l} onClick={()=>navigate("products")}>{l}</a>)}
         </div>
         <div className="footer-links-group">
           <h4>关于我们</h4>
