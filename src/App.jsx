@@ -4139,6 +4139,7 @@ images: [
       )}
 
       {page === "home" && <HomePage navigate={navigate} setSelectedCat={setSelectedCat} statusBadge={statusBadge} setSelectedProduct={setSelectedProduct} role={role} />}
+      {page === "join" && <JoinPage navigate={navigate} />}
       {page === "partner" && <PartnerPage navigate={navigate} />}
       {page === "about" && <AboutPage navigate={navigate} />}
       {page === "products" && <ProductsPage products={filteredProducts} role={role} selectedCat={selectedCat} setSelectedCat={setSelectedCat} searchQ={searchQ} setSearchQ={setSearchQ} statusBadge={statusBadge} setSelectedProduct={(p) => { setSelectedProduct(p); navigate("detail"); }} />}
@@ -4768,7 +4769,7 @@ function Footer({ navigate }) {
         </div>
         <div className="footer-links-group">
           <h4>关于我们</h4>
-           {["品牌介绍","合作计划","联系我们","加入隐海"].map(l=><a key={l} onClick={l==="品牌介绍" ? ()=>navigate("about") : l==="合作计划" ? ()=>navigate("partner") : undefined} style={(l==="品牌介绍"||l==="合作计划") ? {cursor:"pointer"} : {}}>{l}</a>)}
+          {["品牌介绍","合作计划","联系我们","加入隐海"].map(l=><a key={l} onClick={l==="品牌介绍" ? ()=>navigate("about") : l==="合作计划" ? ()=>navigate("partner") : l==="加入隐海" ? ()=>navigate("join") : undefined} style={(l==="品牌介绍"||l==="合作计划"||l==="加入隐海") ? {cursor:"pointer"} : {}}>{l}</a>)}
         </div>
       </div>
       <div className="footer-bottom">© 2024 隐海 YINSEA PHUKET · All Rights Reserved</div>
