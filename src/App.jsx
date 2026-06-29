@@ -4385,6 +4385,60 @@ function ProductCard({ product: p, role, statusBadge, onClick }) {
     </div>
   );
 }
+function JoinPage({ navigate }) {
+  return (
+    <div style={{ paddingTop: 56, background: "#080c0f", minHeight: "100vh", color: "#f0ebe2", fontFamily: "Georgia, serif" }}>
+      <div style={{ padding: "80px 40px 60px", borderBottom: "1px solid rgba(201,169,110,0.1)" }}>
+        <div style={{ fontSize: 10, letterSpacing: "0.5em", color: "#c9a96e", textTransform: "uppercase", marginBottom: 20, display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 32, height: 1, background: "#c9a96e" }} />Join Us · 加入隐海
+        </div>
+        <div style={{ fontSize: 42, fontWeight: 300, color: "#f0ebe2", lineHeight: 1.1, fontStyle: "italic", marginBottom: 8 }}>Build Something Exceptional.</div>
+        <div style={{ fontSize: 15, color: "rgba(240,235,226,0.35)", letterSpacing: "0.3em" }}>共同创造，非凡旅程</div>
+      </div>
+      <div style={{ padding: "56px 40px", borderBottom: "1px solid rgba(201,169,110,0.1)" }}>
+        <div style={{ fontSize: 9, letterSpacing: "0.5em", color: "#c9a96e", textTransform: "uppercase", marginBottom: 24, display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 24, height: 1, background: "#c9a96e" }} />我们在寻找
+        </div>
+        <div style={{ fontSize: 22, fontWeight: 300, color: "#f0ebe2", marginBottom: 16 }}>不只是人才，更是同行者</div>
+        <div style={{ fontSize: 13, color: "rgba(240,235,226,0.4)", lineHeight: 2.2, maxWidth: 620 }}>我们寻找的不只是优秀的人才，更是拥有相同价值观的同行者。无论您来自旅行行业、酒店服务、市场运营、内容创作、摄影摄像、客户服务，还是拥有独特的专业能力，只要热爱品质、重视细节，并愿意不断突破，我们都期待与您相遇。</div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 24 }}>
+          {["旅行行业","酒店服务","市场运营","内容创作","摄影摄像","客户服务","独特专业能力"].map(t => (
+            <div key={t} style={{ padding: "8px 18px", border: "1px solid rgba(201,169,110,0.2)", color: "rgba(240,235,226,0.45)", fontSize: 11, letterSpacing: "0.1em" }}>{t}</div>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: "56px 40px", borderBottom: "1px solid rgba(201,169,110,0.1)" }}>
+        <div style={{ fontSize: 9, letterSpacing: "0.5em", color: "#c9a96e", textTransform: "uppercase", marginBottom: 24, display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 24, height: 1, background: "#c9a96e" }} />我们提供
+        </div>
+        <div style={{ fontSize: 22, fontWeight: 300, color: "#f0ebe2", marginBottom: 16 }}>卓越的团队，创造卓越的体验</div>
+        <div style={{ fontSize: 13, color: "rgba(240,235,226,0.4)", lineHeight: 2.2, maxWidth: 620, marginBottom: 32 }}>在隐海，我们相信，卓越的团队才能创造卓越的体验。这里拥有开放的成长空间、国际化的合作视野、持续学习的机会，以及与优秀伙伴共同打造高端旅行品牌的平台。我们鼓励创造、尊重专业，也相信每一份努力，都值得被看见。</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 1, background: "rgba(201,169,110,0.08)" }}>
+          {[
+            { icon: "🌱", title: "开放的成长空间", desc: "鼓励创造、尊重专业，相信每一份努力都值得被看见。" },
+            { icon: "🌍", title: "国际化合作视野", desc: "与来自不同背景的优秀伙伴共事，拓宽视野，共同成长。" },
+            { icon: "📚", title: "持续学习的机会", desc: "在高端旅行品牌的平台上，持续提升专业能力与行业洞察。" },
+          ].map((c, i) => (
+            <div key={i} style={{ background: "#080c0f", padding: "28px 24px" }}>
+              <div style={{ fontSize: 22, marginBottom: 14 }}>{c.icon}</div>
+              <div style={{ fontSize: 13, color: "#f0ebe2", marginBottom: 8 }}>{c.title}</div>
+              <div style={{ fontSize: 11, color: "rgba(240,235,226,0.3)", lineHeight: 1.9 }}>{c.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: "56px 40px", textAlign: "center" }}>
+        <div style={{ fontSize: 20, fontWeight: 300, color: "#f0ebe2", marginBottom: 12 }}>期待与您相遇</div>
+        <div style={{ fontSize: 12, color: "rgba(240,235,226,0.3)", lineHeight: 2, maxWidth: 500, margin: "0 auto 32px" }}>如果您希望与隐海共同成长，欢迎通过官方微信 / WhatsApp / Telegram / Line 提交您的个人简介与作品，我们期待认识每一位优秀的同行者。</div>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+          {["微信联系","WhatsApp","Telegram","Line"].map((b, i) => (
+            <div key={b} style={{ padding: "12px 28px", background: i===0 ? "#c9a96e" : "transparent", color: i===0 ? "#080c0f" : "#c9a96e", border: "1px solid rgba(201,169,110,0.3)", fontSize: 10, letterSpacing: "0.25em", textTransform: "uppercase", cursor: "pointer" }}>{b}</div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 function PartnerPage({ navigate }) {
   const partners = [
     { icon: "✈️", title: "旅行顾问", desc: "拥有优质客源的独立顾问或旅行社，希望为客户提供更丰富的普吉岛高端体验。" },
