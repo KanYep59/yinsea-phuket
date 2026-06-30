@@ -226,7 +226,7 @@ const STYLE = `
   { id: "spa", icon: "💆", name: "顶级SPA", en: "Luxury Spa" },
   { id: "photo", icon: "📸", name: "旅拍写真", en: "Travel Photo", cover: "https://i.ibb.co/mVftcPGz/photo-2026-06-26-00-49-38.jpg" },
   { id: "heli", icon: "🚁", name: "直升机", en: "Helicopter" },
-  { id: "custom", icon: "✨", name: "隐海定制", en: "Bespoke" },
+  { id: "custom", icon: "✨", name: "隐海定制", en: "Bespoke", cover: "https://i.ibb.co/Mk19mKXS/image.png" },
 ];
 
 const PRODUCTS = [
