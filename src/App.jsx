@@ -231,6 +231,59 @@ const STYLE = `
 
 const PRODUCTS = [
   {
+    id: 75, cat: "heli", status: "avail",
+    name: "攀牙湾直升机观光之旅", nameEn: "Phang Nga Bay Helicopter Tour",
+    emoji: "🚁",
+    images: [
+      "https://i.ibb.co/HfLmC7W2/last-minute-433a2fabb5.png",
+      "https://i.ibb.co/n87YjMZN/large-b87fdbb0e716eae21b2725d3e628bc26-15e4ecdc93.webp",
+      "https://i.ibb.co/XrZ3wm2K/large-hbpn-30mins-078617aba5.jpg",
+      "https://i.ibb.co/vx32RyJz/tours-phang-nga-bay-1c59d22021.png",
+      "https://i.ibb.co/fYHgRf1M/large-SSA-Route-Map-PHANG-NGA-BAY-TOUR-6c054d2b8a.jpg",
+      "https://i.ibb.co/Kjht44Kb/large-SSA-Route-Map-Phang-Nga-Bay-Map-Only-5d1b6bd51a.jpg",
+    ],
+    desc: "40分钟攀牙湾观光直升机，从普吉岛飞越开阔水域，俯瞰石灰岩地貌、詹姆斯邦德岛、水上村庄、红树林水道及波光粼粼的浅滩，平稳绵长的飞行带来无与伦比的全景体验。",
+    retail: 20000, agent: 18500, cost: 17000,
+    includes: [
+      "40分钟直升机观光飞行",
+      "专业飞行员",
+      "攀牙湾全景俯瞰",
+      "詹姆斯邦德岛空中观光",
+      "红树林及水道俯瞰",
+      "安全装备",
+    ],
+    excludes: [
+      "接送服务（需另安排）",
+      "餐饮",
+      "个人消费",
+    ],
+    suppliers: [
+      { name: "SILKSKY", price: 17000 },
+    ],
+    notes: [
+      "价格为每座计费",
+      "出发地点将与预订专员确认",
+      "行程约40分钟，从普吉岛飞往攀牙湾往返",
+      "途经詹姆斯邦德岛、水上村庄攀牙岛、红树林水道",
+      "Silk Sky标志性体验路线",
+      "建议提前预约，天气原因可能影响飞行安排",
+    ],
+    faq: [
+      { q: "飞行时长是多少？", a: "约40分钟，从普吉岛往返攀牙湾，是普吉岛最经典的跨区域直升机观光路线。" },
+      { q: "价格是怎么计算的？", a: "按每座计费，市场价20,000泰铢/座。" },
+      { q: "可以看到詹姆斯邦德岛吗？", a: "可以！航线将飞越传奇的詹姆斯邦德岛，从空中俯瞰其壮丽的石灰岩地貌。" },
+      { q: "攀牙湾有什么特别的？", a: "石灰岩地貌从碧绿海水中拔地而起，搭配红树林水道和水上村庄，是泰国南部最壮丽的自然景观之一。" },
+      { q: "出发地点在哪里？", a: "由Advance Aviation起飞，具体地点将与预订专员确认。" },
+    ],
+    itinerary: "Advance Aviation起飞 → 飞越普吉岛海岸线 → 进入攀牙湾 → 詹姆斯邦德岛俯瞰 → 水上村庄及红树林水道 → 浅滩及石灰岩地貌 → 返航普吉岛",
+    materials: [
+      "攀牙湾直升机观光实拍图及航线图6张",
+      "小红书推广文案（攀牙湾俯瞰版）",
+      "朋友圈推广文案",
+      "攀牙湾航线地图",
+    ],
+  },
+  {
     id: 74, cat: "heli", status: "avail",
     name: "普吉岛全岛直升机观光", nameEn: "Phuket Full Island Helicopter Tour",
     emoji: "🚁",
