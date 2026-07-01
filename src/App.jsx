@@ -4589,20 +4589,6 @@ images: [
       "包车套餐对比表（Alphard vs VIP Van）",
     ],
   },
-
-  {
-    id: 4, cat: "heli", status: "avail",
-    name: "直升机日落私飞", nameEn: "Sunset Helicopter Flight",
-    emoji: "🚁", desc: "从高空俯瞰普吉岛全景，黄金日落时分私人直升机体验，含空中香槟，限2-4人成团。",
-    retail: 28000, agent: 24000, cost: 19500,
-    suppliers: [{ name: "Blue Sky Aviation", price: 19500 }, { name: "Air Andaman", price: 21000 }],
-    notes: ["受天气影响，需准备备用方案", "需提前5天确认"],
-    faq: [{ q: "天气取消怎么办?", a: "免费改期一次，不可退款，建议购买旅行险。" }],
-    itinerary: "酒店接送 → 直升机坪登机 → 空中私飞50分钟 → 香槟庆典 → 返回",
-    includes: ["50分钟飞行", "空中香槟", "专属摄影师"],
-    excludes: ["额外延时", "地面安排"],
-    materials: ["空中实拍图", "INS风推广视频"]
-  },
   {
     id: 62, cat: "photo", status: "avail",
     name: "普吉岛法式叙事风格旅拍", nameEn: "Phuket French Style Travel Photography",
