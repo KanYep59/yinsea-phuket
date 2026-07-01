@@ -231,6 +231,55 @@ const STYLE = `
 
 const PRODUCTS = [
   {
+    id: 74, cat: "heli", status: "avail",
+    name: "普吉岛全岛直升机观光", nameEn: "Phuket Full Island Helicopter Tour",
+    emoji: "🚁",
+    images: [
+      "https://i.ibb.co/HfngxYX3/large-feature-flight-around-phuket-885a805a45.jpg",
+      "https://i.ibb.co/d0yxGf9x/large-SSA-Route-Map-PHUKET-FULL-ISLAND-TOUR-d481439b1d.jpg",
+      "https://i.ibb.co/rKKhZWpg/large-SSA-Route-Map-PHUKET-FULL-ISLAND-TOUR-Map-Only-f065aa4d60.jpg",
+    ],
+    desc: "40分钟普吉岛全岛观光直升机，从Advanced Aviation起飞，俯瞰芭东湾、自由海滩、卡伦、卡塔、奈汉、蓬帖海角，白沙滩与翠绿山丘尽收眼底，如电影般的全景体验。",
+    retail: 20000, agent: 18500, cost: 17000,
+    includes: [
+      "40分钟直升机全岛观光飞行",
+      "专业飞行员",
+      "西海岸及西南海岸全程俯瞰",
+      "蓬帖海角观光",
+      "安全装备",
+    ],
+    excludes: [
+      "接送服务（需另安排）",
+      "餐饮",
+      "个人消费",
+    ],
+    suppliers: [
+      { name: "SILKSKY", price: 17000 },
+    ],
+    notes: [
+      "价格为每座计费",
+      "出发地点将与预订专员确认",
+      "行程约40分钟，沿西海岸及西南海岸飞行",
+      "途经芭东湾/自由海滩/卡伦/卡塔诺伊/卡塔/奈汉/蓬帖海角",
+      "专为初次体验飞行者、情侣、家庭和摄影爱好者设计",
+      "建议提前预约，天气原因可能影响飞行安排",
+    ],
+    faq: [
+      { q: "飞行时长是多少？", a: "约40分钟，普吉岛全岛观光，是时长最长的观光路线。" },
+      { q: "价格是怎么计算的？", a: "按每座计费，市场价20,000泰铢/座。" },
+      { q: "可以看到哪些景色？", a: "芭东湾、自由海滩、卡伦、卡塔诺伊、卡塔、奈汉海滩、蓬帖海角及普吉岛西海岸全线。" },
+      { q: "和其他路线有什么区别？", a: "40分钟全岛游是覆盖范围最广的路线，比西海岸30分钟路线更完整，适合想一次性俯瞰全岛的旅客。" },
+      { q: "出发地点在哪里？", a: "从普吉岛航空公园Advanced Aviation起飞，具体地点将与预订专员确认。" },
+    ],
+    itinerary: "Advanced Aviation起飞 → 西海岸北段（邦涛/卡马拉/苏林）→ 芭东湾 → 自由海滩 → 卡伦海滩 → 卡塔诺伊/卡塔双子湾 → 奈汉海滩 → 蓬帖海角 → 内陆山脉返航",
+    materials: [
+      "普吉岛全岛观光实拍图及航线图3张",
+      "小红书推广文案（全岛俯瞰版）",
+      "朋友圈推广文案",
+      "全岛航线地图",
+    ],
+  },
+  {
     id: 73, cat: "heli", status: "avail",
     name: "西海岸和蓬帖海角直升机观光", nameEn: "West Coast & Promthep Cape Helicopter Tour",
     emoji: "🚁",
