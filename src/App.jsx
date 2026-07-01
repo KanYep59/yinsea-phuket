@@ -238,7 +238,7 @@ const PRODUCTS = [
       "https://i.ibb.co/SD72L6Gz/image.png",
     ],
     desc: "每一次期待，都值得被认真倾听。有些旅程无法被标准定义，也无需局限于固定方案。对于网站未展示的个性化需求，隐海将结合本地资源与专业团队，为您提供专属规划与协调。",
-    retail: 8888, agent: 8888, cost: 8888,
+    retail: 888888, agent: 888888, cost: 888888,
     includes: [
       "专属礼宾服务",
       "私人活动策划",
@@ -254,7 +254,7 @@ const PRODUCTS = [
       "具体费用根据需求定制报价（标注价格为客制化起价）",
     ],
     suppliers: [
-      { name: "隐海定制团队", price: 8888 },
+      { name: "隐海定制团队", price: 888888 },
     ],
     notes: [
       "适合人群：个性化定制、VIP客户、特殊庆祝、专属礼宾",
@@ -285,7 +285,7 @@ const PRODUCTS = [
       "https://i.ibb.co/Ng9hxP6n/image.png",
     ],
     desc: "每一次相聚，都值得尽情庆祝。生日、婚前派对、朋友聚会、品牌活动或私人派对，每一个重要时刻，都值得拥有专属于它的仪式感。",
-    retail: 8888, agent: 8888, cost: 8888,
+    retail: 888888, agent: 888888, cost: 888888,
     includes: [
       "游艇派对安排",
       "泳池别墅",
@@ -301,7 +301,7 @@ const PRODUCTS = [
       "具体费用根据需求定制报价（标注价格为客制化起价）",
     ],
     suppliers: [
-      { name: "隐海定制团队", price: 8888 },
+      { name: "隐海定制团队", price: 888888 },
     ],
     notes: [
       "适合人群：生日派对、婚前派对、朋友聚会、品牌活动",
@@ -332,7 +332,7 @@ const PRODUCTS = [
       "https://i.ibb.co/yFPd3g1k/image.png",
     ],
     desc: "与志同道合的人，共赴一场精彩旅程。无论是海岛探索、游艇出海，还是休闲娱乐与夜间体验，我们根据团队兴趣打造专属安排，让每一次相聚都更加尽兴。",
-    retail: 8888, agent: 8888, cost: 8888,
+    retail: 888888, agent: 888888, cost: 888888,
     includes: [
       "游艇出海安排",
       "ATV越野体验",
@@ -348,7 +348,7 @@ const PRODUCTS = [
       "具体费用根据需求定制报价（标注价格为客制化起价）",
     ],
     suppliers: [
-      { name: "隐海定制团队", price: 8888 },
+      { name: "隐海定制团队", price: 888888 },
     ],
     notes: [
       "适合人群：好友出游、男士旅行、小团体旅行、周末度假",
@@ -379,7 +379,7 @@ const PRODUCTS = [
       "https://i.ibb.co/qF71YDjP/image.png",
     ],
     desc: "商务之外，更是品质与效率。从商务接待、企业奖励旅游，到高端出行与贵宾礼宾服务，我们以专业协调与本地资源，为每一次商务旅程提供更加从容的体验。",
-    retail: 8888, agent: 8888, cost: 8888,
+    retail: 888888, agent: 888888, cost: 888888,
     includes: [
       "机场礼遇",
       "豪华用车",
@@ -395,7 +395,7 @@ const PRODUCTS = [
       "具体费用根据需求定制报价（标注价格为客制化起价）",
     ],
     suppliers: [
-      { name: "隐海定制团队", price: 8888 },
+      { name: "隐海定制团队", price: 888888 },
     ],
     notes: [
       "适合人群：商务接待、企业客户、奖励旅游、VIP贵宾",
@@ -426,7 +426,7 @@ const PRODUCTS = [
       "https://i.ibb.co/XrnFTRph/image.png",
     ],
     desc: "让每一位家人，都拥有属于自己的假期。兼顾舒适、品质与节奏，从长辈到孩子，从静享度假到海岛体验，隐海以更细致的规划，让不同年龄的需求都得到照顾。",
-    retail: 9999, agent: 9999, cost: 9999,
+    retail: 999999, agent: 999999, cost: 999999,
     includes: [
       "私人别墅住宿安排",
       "游艇体验",
@@ -440,7 +440,7 @@ const PRODUCTS = [
       "具体费用根据需求定制报价（标注价格为客制化起价）",
     ],
     suppliers: [
-      { name: "隐海定制团队", price: 9999 },
+      { name: "隐海定制团队", price: 999999 },
     ],
     notes: [
       "适合人群：家庭度假、长辈同行、多人出游、假期旅行",
@@ -471,7 +471,7 @@ const PRODUCTS = [
       "https://i.ibb.co/5hd0Nx3q/image.png",
     ],
     desc: "陪伴，是最珍贵的旅行意义。真正的亲子旅行，不在于行程的丰富，而在于相伴的每一个瞬间。我们关注孩子的快乐，也重视父母的轻松，让一家人的假期更加自在、安心且充满温度。",
-    retail: 9999, agent: 9999, cost: 9999,
+    retail: 999999, agent: 999999, cost: 999999,
     includes: [
       "私人别墅住宿安排",
       "儿童乐园安排",
@@ -486,7 +486,7 @@ const PRODUCTS = [
       "具体费用根据需求定制报价（标注价格为客制化起价）",
     ],
     suppliers: [
-      { name: "隐海定制团队", price: 9999 },
+      { name: "隐海定制团队", price: 999999 },
     ],
     notes: [
       "适合人群：亲子家庭、三代同行、宝宝出游、假期度假",
@@ -517,7 +517,7 @@ const PRODUCTS = [
       "https://i.ibb.co/Dg6ZN5dv/image.png",
     ],
     desc: "最好的旅行，是与最好的朋友同行。放慢脚步，享受阳光、海风、美食与欢笑。从精致度假到拍照打卡，从放松疗愈到海岛探索，隐海为每一次相聚创造更多值得分享的回忆。",
-    retail: 9999, agent: 9999, cost: 9999,
+    retail: 999999, agent: 999999, cost: 999999,
     includes: [
       "私人别墅住宿安排",
       "游艇出海安排",
@@ -533,7 +533,7 @@ const PRODUCTS = [
       "具体费用根据需求定制报价（标注价格为客制化起价）",
     ],
     suppliers: [
-      { name: "隐海定制团队", price: 9999 },
+      { name: "隐海定制团队", price: 999999 },
     ],
     notes: [
       "适合人群：闺蜜出游、女生旅行、毕业旅行、度假放松",
@@ -564,7 +564,7 @@ const PRODUCTS = [
       "https://i.ibb.co/pBsncRkY/image.png",
     ],
     desc: "每一段爱情，都值得一场独一无二的旅程。从浪漫海景、私人游艇、日落晚餐，到求婚仪式、纪念日庆祝与专属摄影，隐海将每一个细节融入旅程，让爱意在普吉岛留下最美好的回忆。",
-    retail: 9999, agent: 9999, cost: 9999,
+    retail: 999999, agent: 999999, cost: 999999,
     includes: [
       "私人别墅住宿安排",
       "游艇出海安排",
@@ -578,7 +578,7 @@ const PRODUCTS = [
       "具体费用根据需求定制报价（标注价格为客制化起价）",
     ],
     suppliers: [
-      { name: "隐海定制团队", price: 9999 },
+      { name: "隐海定制团队", price: 999999 },
     ],
     notes: [
       "适合人群：蜜月旅行、求婚策划、纪念日庆祝、情侣度假",
