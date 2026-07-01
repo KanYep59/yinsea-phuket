@@ -231,6 +231,52 @@ const STYLE = `
 
 const PRODUCTS = [
   {
+    id: 71, cat: "heli", status: "avail",
+    name: "拉古纳和东海岸码头直升机观光", nameEn: "Laguna & East Coast Marina Helicopter Tour",
+    emoji: "🚁",
+    images: [
+      "https://i.ibb.co/CKF2DCH0/feature-phuket-laguna-marina-76ae996c9b.jpg",
+      "https://i.ibb.co/svPMKTCf/large-SSA-Route-Map-Laguna-and-East-Coast-Marinas-f0b8e86be4.jpg",
+      "https://i.ibb.co/yndFRxT2/large-SSA-Route-Map-Laguna-and-East-Coast-Marinas-Map-Only-ee5c5b754f.jpg",
+    ],
+    desc: "从Advance Aviation直升机停机坪出发，俯瞰邦涛海滩、豪华度假村、金色海岸线、东海岸码头、红树林与游艇海湾，探索普吉岛内陆风光。海洋、丛林与天空的完美融合，15分钟难忘空中之旅。",
+    retail: 10000, agent: 9300, cost: 8500,
+    includes: [
+      "15分钟直升机观光飞行",
+      "专业飞行员",
+      "从Advance Aviation直升机停机坪出发",
+      "俯瞰拉古纳度假村及东海岸码头",
+      "安全装备",
+    ],
+    excludes: [
+      "接送服务（需另安排）",
+      "餐饮",
+      "个人消费",
+    ],
+    suppliers: [
+      { name: "SILKSKY", price: 8500 },
+    ],
+    notes: [
+      "价格为每座计费",
+      "出发地点：Advance Aviation直升机停机坪",
+      "行程约15分钟，含邦涛海滩→豪华度假村→东海岸码头→红树林→返程内陆路线",
+      "建议提前预约，天气原因可能影响飞行安排",
+    ],
+    faq: [
+      { q: "飞行时长是多少？", a: "约15分钟，从Advance Aviation直升机停机坪往返拉古纳和东海岸码头。" },
+      { q: "价格是怎么计算的？", a: "按每座计费，市场价10,000泰铢/座。" },
+      { q: "可以看到哪些景色？", a: "邦涛海滩、豪华度假村、金色海岸线、东海岸码头、红树林、游艇海湾及普吉岛内陆风光。" },
+      { q: "需要提前预约吗？", a: "需要，建议提前预约，天气原因可能影响飞行安排，会提前通知。" },
+    ],
+    itinerary: "Advance Aviation停机坪登机 → 邦涛海滩起飞 → 俯瞰豪华度假村及海岸线 → 飞越普吉岛山脉 → 东海岸码头及红树林 → 返程内陆路线 → 停机坪降落",
+    materials: [
+      "直升机观光实拍图及航线图3张",
+      "小红书推广文案（空中俯瞰普吉岛版）",
+      "朋友圈推广文案",
+      "航线地图",
+    ],
+  },
+  {
     id: 70, cat: "custom", status: "avail",
     name: "特别安排", nameEn: "Special Arrangements",
     emoji: "✨",
