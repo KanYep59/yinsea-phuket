@@ -231,6 +231,55 @@ const STYLE = `
 
 const PRODUCTS = [
   {
+    id: 72, cat: "heli", status: "avail",
+    name: "大佛观光直升机之旅", nameEn: "Big Buddha Scenic Helicopter Tour",
+    emoji: "🚁",
+    images: [
+      "https://i.ibb.co/jvPfrs7v/large-DSC-4557-4ec4f10d29.jpg",
+      "https://i.ibb.co/b5YLtvTj/large-DSC-4704-56da1cbcfc.jpg",
+      "https://i.ibb.co/HfcWMdm0/large-SSA-Route-Map-BIG-BUDDHA-SCENIC-TOUR-02224404cf.jpg",
+      "https://i.ibb.co/yn5h6Xz9/large-SSA-Route-Map-BIG-BUDDHA-SCENIC-TOUR-Map-Only-421ba1e4a7.jpg",
+    ],
+    desc: "25分钟私密观光飞行，从空中俯瞰普吉岛大佛全景。飞越绿色山丘、海岸线与安达曼海，全景舷窗每个座位均有绝佳视野，静谧而庄严，适合所有年龄段旅客。",
+    retail: 14000, agent: 13300, cost: 12500,
+    includes: [
+      "25分钟直升机观光飞行",
+      "专业飞行员",
+      "全景舷窗视野",
+      "安全装备",
+    ],
+    excludes: [
+      "接送服务（需另安排）",
+      "餐饮",
+      "个人消费",
+    ],
+    suppliers: [
+      { name: "SILKSKY", price: 12500 },
+    ],
+    notes: [
+      "价格为每座计费",
+      "出发地点将与预订专员确认",
+      "行程约25分钟，飞越绿色山丘、大佛、海岸线及安达曼海",
+      "全景舷窗确保每个座位均有清晰视野",
+      "适合所有年龄段家庭及旅客，全程平稳舒适",
+      "建议提前预约，天气原因可能影响飞行安排",
+    ],
+    faq: [
+      { q: "飞行时长是多少？", a: "约25分钟，全程俯瞰大佛、普吉岛山丘、海岸线及安达曼海。" },
+      { q: "价格是怎么计算的？", a: "按每座计费，市场价14,000泰铢/座。" },
+      { q: "可以看到什么？", a: "普吉岛大佛全景、连绵绿色山丘、海岸线、安达曼海，每个转弯都带来全新视觉体验。" },
+      { q: "适合儿童吗？", a: "适合所有年龄段家庭，全程平稳舒适，节奏舒缓。" },
+      { q: "出发地点在哪里？", a: "出发地点将与预订专员确认，提前告知您具体地点。" },
+    ],
+    itinerary: "与预订专员确认出发地点 → 登机准备 → 飞越绿色山丘 → 大佛全景俯瞰 → 海岸线及安达曼海观光 → 返航降落",
+    materials: [
+      "大佛观光直升机实拍图及航线图4张",
+      "小红书推广文案（大佛空中俯瞰版）",
+      "朋友圈推广文案",
+      "航线地图",
+    ],
+  },
+  {
     id: 71, cat: "heli", status: "avail",
     name: "拉古纳和东海岸码头直升机观光", nameEn: "Laguna & East Coast Marina Helicopter Tour",
     emoji: "🚁",
