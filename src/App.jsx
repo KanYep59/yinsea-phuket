@@ -231,6 +231,56 @@ const STYLE = `
 
 const PRODUCTS = [
   {
+    id: 73, cat: "heli", status: "avail",
+    name: "西海岸和蓬帖海角直升机观光", nameEn: "West Coast & Promthep Cape Helicopter Tour",
+    emoji: "🚁",
+    images: [
+      "https://i.ibb.co/fVwrLC8b/dds.jpg",
+      "https://i.ibb.co/FQNbryF/image.jpg",
+      "https://i.ibb.co/kgKgNpHS/image.jpg",
+    ],
+    desc: "30分钟西海岸观光直升机，从Advanced Aviation起飞，俯瞰苏林/卡马拉/邦涛/芭东/卡伦/卡塔/奈汉海滩及蓬帖海角，途经大佛空中环绕，宛如置身电影全景。",
+    retail: 16000, agent: 15000, cost: 14000,
+    includes: [
+      "30分钟直升机观光飞行",
+      "专业飞行员",
+      "西海岸全程海岸线俯瞰",
+      "大佛空中环绕",
+      "蓬帖海角观光",
+      "安全装备",
+    ],
+    excludes: [
+      "接送服务（需另安排）",
+      "餐饮",
+      "个人消费",
+    ],
+    suppliers: [
+      { name: "SILKSKY", price: 14000 },
+    ],
+    notes: [
+      "价格为每座计费",
+      "出发地点将与预订专员确认",
+      "行程约30分钟，沿西海岸及西南海岸飞行",
+      "途经苏林/卡马拉/邦涛/芭东/自由海滩/卡伦/卡塔/奈汉海滩及蓬帖海角",
+      "专为初次体验飞行者、情侣、家庭和摄影爱好者设计",
+      "建议提前预约，天气原因可能影响飞行安排",
+    ],
+    faq: [
+      { q: "飞行时长是多少？", a: "约30分钟，沿普吉岛西海岸及西南海岸往返飞行。" },
+      { q: "价格是怎么计算的？", a: "按每座计费，市场价16,000泰铢/座。" },
+      { q: "可以看到哪些景色？", a: "苏林/卡马拉/邦涛/芭东/自由海滩/卡伦/卡塔诺伊/卡塔/奈汉海滩、大佛、蓬帖海角及普吉岛内陆山脉。" },
+      { q: "适合摄影吗？", a: "非常适合！专为摄影爱好者设计，海岸线、大佛、双子湾等都是绝佳拍摄机会。" },
+      { q: "出发地点在哪里？", a: "从普吉岛航空公园Advanced Aviation起飞，具体地点将与预订专员确认。" },
+    ],
+    itinerary: "Advanced Aviation起飞 → 苏林/卡马拉/邦涛海滩 → 大佛空中环绕 → 芭东湾 → 自由海滩 → 卡伦/卡塔/奈汉海滩 → 蓬帖海角 → 内陆山脉返航",
+    materials: [
+      "西海岸直升机观光实拍图3张",
+      "小红书推广文案（西海岸全景版）",
+      "朋友圈推广文案",
+      "航线地图",
+    ],
+  },
+  {
     id: 72, cat: "heli", status: "avail",
     name: "大佛观光直升机之旅", nameEn: "Big Buddha Scenic Helicopter Tour",
     emoji: "🚁",
