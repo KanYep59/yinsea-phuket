@@ -4469,19 +4469,6 @@ images: [
     ],
   },
   {
-    id: 3, cat: "spa", status: "avail",
-    name: "Keemala竹屋SPA", nameEn: "Keemala Signature Spa",
-    emoji: "💆", desc: "藏于热带雨林中的五星级SPA殿堂，采用古法泰式疗法与海岛精油，360分钟全身心蜕变体验。",
-    retail: 8500, agent: 7200, cost: 5800,
-    suppliers: [{ name: "Keemala直采", price: 5800 }, { name: "第三方代理", price: 6400 }],
-    notes: ["淡季有时可争取折扣", "可配合别墅套餐打包"],
-    faq: [{ q: "需提前多久预约?", a: "建议提前2-5天，旺季7天以上。" }],
-    itinerary: "专车接送 → 迎宾花环 → 身体评估 → 古法按摩 → 精油疗愈 → 冥想收尾 → 健康茶点",
-    includes: ["交通接送", "全程疗程", "精油赠品", "健康套餐"],
-    excludes: ["额外护肤品", "升级项目"],
-    materials: ["Keemala官方授权图", "中文推广文案", "小红书种草帖"]
-  },
-  {
     id: 11, cat: "car", status: "avail",
     name: "埃尔法豪华专车服务", nameEn: "Alphard Luxury Transfer",
     emoji: "🚘",
