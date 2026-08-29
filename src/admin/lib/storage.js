@@ -21,6 +21,36 @@ export function validateImageFile(file) {
   return null;
 }
 
+// 将历史外链图片下载成可沿用现有上传流程的 File。
+// 这一步只读取外部链接；调用方必须在全部下载、上传成功后，才允许写回
+// products.images，避免半迁移状态覆盖原有图片列表。
+export async function downloadExternalImage(url, fallbackName = "legacy-image.jpg") {
+  let response;
+  try {
+    response = await fetch(url);
+  } catch {
+    throw new Error("无法下载旧图片，请确认该外链仍可访问后重试");
+  }
+
+  if (!response.ok) {
+    throw new Error(`无法下载旧图片（HTTP ${response.status}）`);
+  }
+
+  const blob = await response.blob();
+  const contentType = (blob.type || response.headers.get("content-type") || "").split(";")[0].toLowerCase();
+  const filename = (() => {
+    try {
+      return decodeURIComponent(new URL(response.url || url).pathname.split("/").pop() || fallbackName);
+    } catch {
+      return fallbackName;
+    }
+  })();
+  const file = new File([blob], filename, { type: contentType });
+  const validationError = validateImageFile(file);
+  if (validationError) throw new Error(`旧图片不符合上传要求：${validationError}`);
+  return file;
+}
+
 function safeExt(filename) {
   const m = /\.[a-zA-Z0-9]+$/.exec(filename || "");
   return m ? m[0].toLowerCase() : ".jpg";

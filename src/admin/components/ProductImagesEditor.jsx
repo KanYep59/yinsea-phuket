@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabaseClient";
 import {
   ACCEPTED_IMAGE_TYPES,
   deleteStorageObject,
+  downloadExternalImage,
   storagePathFromPublicUrl,
   uploadImageFile,
   validateImageFile,
@@ -24,6 +25,7 @@ import {
 export default function ProductImagesEditor({ productId, images, onImagesChanged }) {
   const [list, setList] = useState(() => (Array.isArray(images) ? images : []));
   const [uploading, setUploading] = useState(false);
+  const [migrating, setMigrating] = useState(false);
   const [busyIndex, setBusyIndex] = useState(null); // 正在删除/移动的图片下标
   const [error, setError] = useState("");
   const fileInputRef = useRef(null);
@@ -34,6 +36,7 @@ export default function ProductImagesEditor({ productId, images, onImagesChanged
     setList(Array.isArray(images) ? images : []);
     setError("");
     setBusyIndex(null);
+    setMigrating(false);
   }, [productId]);
 
   if (!productId) {
@@ -133,6 +136,57 @@ export default function ProductImagesEditor({ productId, images, onImagesChanged
     }
   };
 
+  // 一次仅处理当前正在编辑的产品。旧外链必须全部完成下载与上传后，
+  // 才会用新的 Supabase URL 一次性替换数据库中的原数组；任一步失败都
+  // 保留原外链，并清理本次已上传的临时文件。
+  const handleMigrateExternalImages = async () => {
+    const sourceUrls = list.slice();
+    const legacyUrls = sourceUrls.filter((url) => !storagePathFromPublicUrl(url));
+    if (!legacyUrls.length) return;
+
+    const confirmed = window.confirm(
+      `将迁移当前产品的 ${legacyUrls.length} 张旧外链图片到图片库。\n全部迁移成功前不会改动当前图片；成功后会保留原顺序并替换为 Supabase 图片。`
+    );
+    if (!confirmed) return;
+
+    setError("");
+    setMigrating(true);
+    const uploaded = [];
+    const replacements = new Map();
+
+    try {
+      for (let index = 0; index < sourceUrls.length; index += 1) {
+        const url = sourceUrls[index];
+        if (storagePathFromPublicUrl(url)) continue;
+
+        let file;
+        try {
+          file = await downloadExternalImage(url, `legacy-${index + 1}.jpg`);
+        } catch (err) {
+          throw new Error(`第 ${index + 1} 张图片迁移失败：${err.message || "无法下载"}`);
+        }
+        const result = await uploadImageFile(file, `products/${productId}`);
+        uploaded.push(result);
+        replacements.set(url, result.url);
+      }
+
+      const next = sourceUrls.map((url) => replacements.get(url) || url);
+      try {
+        await persist(next);
+      } catch (dbErr) {
+        await Promise.allSettled(uploaded.map((item) => deleteStorageObject(item.path)));
+        throw dbErr;
+      }
+    } catch (err) {
+      await Promise.allSettled(uploaded.map((item) => deleteStorageObject(item.path)));
+      setError(err.message || "旧图片迁移失败，原图片没有改动");
+    } finally {
+      setMigrating(false);
+    }
+  };
+
+  const legacyImageCount = list.filter((url) => !storagePathFromPublicUrl(url)).length;
+
   return (
     <div>
       {error && <div className="adm-notice danger" style={{ marginBottom: 10 }}>{error}</div>}
@@ -186,10 +240,21 @@ export default function ProductImagesEditor({ productId, images, onImagesChanged
         type="button"
         className="adm-btn adm-btn-outline adm-btn-sm"
         onClick={handlePickFile}
-        disabled={uploading}
+        disabled={uploading || migrating || busyIndex !== null}
       >
         {uploading ? "上传中…" : "+ 上传图片"}
       </button>
+      {legacyImageCount > 0 && (
+        <button
+          type="button"
+          className="adm-btn adm-btn-outline adm-btn-sm"
+          onClick={handleMigrateExternalImages}
+          disabled={uploading || migrating || busyIndex !== null}
+          style={{ marginLeft: 8 }}
+        >
+          {migrating ? `正在迁移 ${legacyImageCount} 张旧图片…` : `迁移 ${legacyImageCount} 张旧图片到图片库`}
+        </button>
+      )}
       <div style={{ fontSize: 11, color: "var(--fog)", marginTop: 6 }}>
         支持 JPEG、PNG、WebP，单张最大 10MB。不支持手动填写外部图片链接。
       </div>
