@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { PRODUCTS } from "./data/products.js";
+import { loadPublicCatalog } from "./lib/publicCatalog.js";
 const STYLE = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&family=Noto+Serif+SC:wght@300;400;500&display=swap');
 
@@ -239,19 +239,36 @@ export default function App() {
   const [loginTab, setLoginTab] = useState("agent");
   const [loginForm, setLoginForm] = useState({ user: "", pass: "" });
   const [menuOpen, setMenuOpen] = useState(false);
-  const [adminTab, setAdminTab] = useState("products");
+  const [catalog, setCatalog] = useState(() => ({
+    products: [],
+    categories: CATEGORIES,
+    regions: [],
+  }));
+
+  useEffect(() => {
+    let cancelled = false;
+
+    loadPublicCatalog({ fallbackCategories: CATEGORIES }).then((nextCatalog) => {
+      if (!cancelled && nextCatalog) setCatalog(nextCatalog);
+    }).catch(() => {});
+
+    return () => { cancelled = true; };
+  }, []);
+
+  const products = catalog.products;
+  const categories = catalog.categories;
 
   const navigate = (p) => { setPage(p); setMenuOpen(false); window.scrollTo(0, 0); };
 
   const login = () => {
     if (loginTab === "agent" && loginForm.pass === "agent888") { setRole("agent"); setShowLogin(false); }
-    else if (loginTab === "admin" && loginForm.pass === "admin888") { setRole("admin"); setShowLogin(false); navigate("admin"); }
+    else if (loginTab === "admin") { window.location.assign("/admin/login"); }
     else alert("密码错误，请联系管理员");
   };
 
   const logout = () => { setRole("guest"); navigate("home"); };
 
-  const filteredProducts = PRODUCTS.filter(p => {
+  const filteredProducts = products.filter(p => {
     const matchCat = selectedCat === "all" || p.cat === selectedCat;
     const matchQ = !searchQ || p.name.includes(searchQ) || p.nameEn.toLowerCase().includes(searchQ.toLowerCase()) || p.desc.includes(searchQ);
     return matchCat && matchQ;
@@ -313,7 +330,7 @@ export default function App() {
               ))}
             </div>
             <div className="login-hint">
-              演示密码：<strong>{loginTab === "agent" ? "agent888" : "admin888"}</strong>
+              {loginTab === "agent" ? <>演示密码：<strong>agent888</strong></> : "管理员请使用正式后台登录"}
             </div>
             <div className="form-group">
               <label className="form-label">账号</label>
@@ -328,13 +345,12 @@ export default function App() {
         </div>
       )}
 
-      {page === "home" && <HomePage navigate={navigate} setSelectedCat={setSelectedCat} statusBadge={statusBadge} setSelectedProduct={setSelectedProduct} role={role} />}
+      {page === "home" && <HomePage navigate={navigate} products={products} categories={categories} setSelectedCat={setSelectedCat} statusBadge={statusBadge} setSelectedProduct={setSelectedProduct} role={role} />}
       {page === "join" && <JoinPage navigate={navigate} />}
       {page === "partner" && <PartnerPage navigate={navigate} />}
       {page === "about" && <AboutPage navigate={navigate} />}
-      {page === "products" && <ProductsPage products={filteredProducts} role={role} selectedCat={selectedCat} setSelectedCat={setSelectedCat} searchQ={searchQ} setSearchQ={setSearchQ} statusBadge={statusBadge} setSelectedProduct={(p) => { setSelectedProduct(p); navigate("detail"); }} />}
+      {page === "products" && <ProductsPage products={filteredProducts} categories={categories} role={role} selectedCat={selectedCat} setSelectedCat={setSelectedCat} searchQ={searchQ} setSearchQ={setSearchQ} statusBadge={statusBadge} setSelectedProduct={(p) => { setSelectedProduct(p); navigate("detail"); }} />}
       {page === "detail" && selectedProduct && <DetailPage product={selectedProduct} role={role} back={() => navigate("products")} statusBadge={statusBadge} />}
-      {page === "admin" && role === "admin" && <AdminPage adminTab={adminTab} setAdminTab={setAdminTab} />}
       {page !== "admin" && <Footer navigate={navigate} />}
       {page !== "admin" && (
         <div className="contact-float">
@@ -344,7 +360,7 @@ export default function App() {
       )}
     </div>
   );
-}function HomePage({ navigate, setSelectedCat, setSelectedProduct, statusBadge, role }) {
+}function HomePage({ navigate, products, categories, setSelectedCat, setSelectedProduct, statusBadge, role }) {
   return (
     <>
       <section className="hero">
@@ -382,14 +398,14 @@ export default function App() {
           <div className="section-title-cn">探索普吉岛独家资源</div>
         </div>
         <div className="cat-grid">
-          {CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <div key={cat.id} className="cat-card" onClick={() => { setSelectedCat(cat.id); navigate("products"); }}>
               {cat.cover
   ? <img src={cat.cover} alt={cat.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.5 }} />
   : <div className="cat-bg">{cat.icon}</div>
 }
               <div className="cat-gradient" />
-              <div className="cat-count">{PRODUCTS.filter(p => p.cat === cat.id).length}</div>
+              <div className="cat-count">{products.filter(p => p.cat === cat.id).length}</div>
               <div className="cat-content">
                 <div className="cat-name">{cat.name}</div>
                 <div className="cat-name-en">{cat.en}</div>
@@ -406,8 +422,8 @@ export default function App() {
         </div>
         <div className="product-grid">
           {["villa", "yacht", "photo"].map(catId => {
-  const topProduct = [...PRODUCTS].filter(item => item.cat === catId).sort((a, b) => b.retail - a.retail)[0];
-  return topProduct ? <ProductCard key={topProduct.id} product={topProduct} role={role} statusBadge={statusBadge} onClick={() => { setSelectedProduct(topProduct); navigate("detail"); }} /> : null;
+  const topProduct = [...products].filter(item => item.cat === catId).sort((a, b) => b.retail - a.retail)[0];
+  return topProduct ? <ProductCard key={topProduct.id} product={topProduct} categories={categories} role={role} statusBadge={statusBadge} onClick={() => { setSelectedProduct(topProduct); navigate("detail"); }} /> : null;
 })}
         </div>
       </section>
@@ -415,7 +431,7 @@ export default function App() {
   );
 }
 
-function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, setSearchQ, statusBadge, setSelectedProduct }) {
+function ProductsPage({ products, categories, role, selectedCat, setSelectedCat, searchQ, setSearchQ, statusBadge, setSelectedProduct }) {
   const [yachtSub, setYachtSub] = useState("all");
 
   const sortedProducts = (selectedCat === "yacht" || selectedCat === "villa")
@@ -487,7 +503,7 @@ function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, se
         </div>
         <div className="filter-tabs">
           <button className={`filter-tab${selectedCat === "all" ? " active" : ""}`} onClick={() => { setSelectedCat("all"); setYachtSub("all"); }}>全部</button>
-          {CATEGORIES.map(c => (
+          {categories.map(c => (
             <button key={c.id} className={`filter-tab${selectedCat === c.id ? " active" : ""}`} onClick={() => { setSelectedCat(c.id); setYachtSub("all"); }}>
               {c.icon} {c.name}
             </button>
@@ -512,15 +528,17 @@ function ProductsPage({ products, role, selectedCat, setSelectedCat, searchQ, se
       <div className="section" style={{ paddingTop: 16 }}>
         {filteredByYachtSub.length === 0
           ? <div className="empty-state"><div style={{ fontSize: 48 }}>🔍</div><div style={{ marginTop: 16 }}>未找到相关产品</div></div>
-          : <div className="product-grid">{filteredByYachtSub.map(p => <ProductCard key={p.id} product={p} role={role} statusBadge={statusBadge} onClick={() => setSelectedProduct(p)} />)}</div>
+          : <div className="product-grid">{filteredByYachtSub.map(p => <ProductCard key={p.id} product={p} categories={categories} role={role} statusBadge={statusBadge} onClick={() => setSelectedProduct(p)} />)}</div>
         }
       </div>
     </div>
   );
 }
 
-function ProductCard({ product: p, role, statusBadge, onClick }) {
-  const profit = p.retail - p.agent;
+function ProductCard({ product: p, categories, role, statusBadge, onClick }) {
+  const hasAgentPrice = Number.isFinite(p.agent);
+  const hasCost = Number.isFinite(p.cost);
+  const profit = hasAgentPrice ? p.retail - p.agent : 0;
   const coverImg = p.images && p.images.length > 0 ? p.images[0] : null;
   return (
     <div className="product-card" onClick={onClick}>
@@ -532,7 +550,7 @@ function ProductCard({ product: p, role, statusBadge, onClick }) {
         <div className="product-img-overlay" />
         <div className="product-badges">
           {statusBadge(p.status)}
-          <span className="badge badge-cat">{CATEGORIES.find(c => c.id === p.cat)?.name}</span>
+          <span className="badge badge-cat">{categories.find(c => c.id === p.cat)?.name || "未分类"}</span>
         </div>
       </div>
       <div className="product-body">
@@ -546,7 +564,7 @@ function ProductCard({ product: p, role, statusBadge, onClick }) {
           </div>
           <span style={{ fontSize: 20, color: "var(--fog)" }}>›</span>
         </div>
-        {(role === "agent" || role === "admin") && (
+        {(role === "agent" || role === "admin") && hasAgentPrice && (
           <div className="price-agent-row">
             <div className="price-agent-item">
               <div className="price-agent-label">市场价</div>
@@ -562,7 +580,7 @@ function ProductCard({ product: p, role, statusBadge, onClick }) {
             </div>
           </div>
         )}
-        {role === "admin" && (
+        {role === "admin" && hasCost && (
           <div className="internal-panel">
             <div className="internal-label">内部数据</div>
             <div className="internal-grid">
@@ -772,7 +790,7 @@ function DetailPage({ product: p, role, back, statusBadge }) {
               <div style={{ fontSize: 11, color: "var(--fog)", marginBottom: 4 }}>市场价（THB）</div>
               <div className="price-main"><span className="price-currency">฿</span>{p.retail.toLocaleString()}</div>
             </div>
-            {(role === "agent" || role === "admin") && (
+            {(role === "agent" || role === "admin") && Number.isFinite(p.agent) && (
               <div style={{ textAlign: "right" }}>
                 <div style={{ fontSize: 11, color: "var(--fog)", marginBottom: 4 }}>代理价</div>
                 <div style={{ fontFamily: "var(--font-display)", fontSize: 22, color: "var(--gold)" }}>฿{p.agent.toLocaleString()}</div>
@@ -780,7 +798,7 @@ function DetailPage({ product: p, role, back, statusBadge }) {
               </div>
             )}
           </div>
-          {role === "admin" && (
+          {role === "admin" && Number.isFinite(p.cost) && (
             <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px solid var(--border)", display: "flex", gap: 20, fontSize: 12 }}>
               <span>成本: <strong style={{ color: "var(--danger)" }}>฿{p.cost.toLocaleString()}</strong></span>
               <span>净利: <strong style={{ color: "var(--success)" }}>฿{(p.retail - p.cost).toLocaleString()}</strong></span>
@@ -791,19 +809,19 @@ function DetailPage({ product: p, role, back, statusBadge }) {
             <button className="contact-btn contact-whatsapp">📱 WhatsApp</button>
           </div>
         </div>
-        <div className="detail-section" style={{ marginTop: 24 }}>
+        {p.itinerary && <div className="detail-section" style={{ marginTop: 24 }}>
           <div className="detail-section-title">行程安排</div>
           <p className="detail-text">{p.itinerary}</p>
-        </div>
-        <div className="detail-section">
+        </div>}
+        {p.includes?.length > 0 && <div className="detail-section">
           <div className="detail-section-title">包含内容</div>
           <ul className="include-list">{p.includes?.map((item, i) => <li key={i}>{item}</li>)}</ul>
-        </div>
-        <div className="detail-section">
+        </div>}
+        {p.excludes?.length > 0 && <div className="detail-section">
           <div className="detail-section-title">不含内容</div>
           <ul className="exclude-list">{p.excludes?.map((item, i) => <li key={i}>{item}</li>)}</ul>
-        </div>
-        <div className="detail-section">
+        </div>}
+        {p.faq?.length > 0 && <div className="detail-section">
           <div className="detail-section-title">常见问题</div>
           {p.faq?.map((f, i) => (
             <div key={i} className="faq-item">
@@ -813,8 +831,8 @@ function DetailPage({ product: p, role, back, statusBadge }) {
               {openFaq === i && <div className="faq-a">{f.a}</div>}
             </div>
           ))}
-        </div>
-        {role === "agent" && (
+        </div>}
+        {role === "agent" && p.materials?.length > 0 && (
           <div className="detail-section">
             <div className="detail-section-title">推广素材</div>
             {p.materials?.map((m, i) => (
@@ -848,101 +866,6 @@ function DetailPage({ product: p, role, back, statusBadge }) {
           </>
         )}
       </div>
-    </div>
-  );
-}
-
-function AdminPage({ adminTab, setAdminTab }) {
-  const totalProfit = PRODUCTS.reduce((s, p) => s + (p.retail - p.cost), 0);
-  return (
-    <div className="admin-panel">
-      <div className="admin-title">后台管理系统</div>
-      <div className="admin-subtitle">隐海 YINSEA · 内部专用</div>
-      <div className="stats-grid">
-        <div className="stats-card"><div className="stats-card-num">{PRODUCTS.length}</div><div className="stats-card-label">在架产品</div></div>
-        <div className="stats-card"><div className="stats-card-num profit-highlight">฿{(totalProfit/1000).toFixed(0)}K</div><div className="stats-card-label">综合利润空间</div></div>
-        <div className="stats-card"><div className="stats-card-num">12</div><div className="stats-card-label">活跃代理商</div></div>
-        <div className="stats-card"><div className="stats-card-num">98%</div><div className="stats-card-label">客户好评率</div></div>
-      </div>
-      <div className="admin-tabs">
-        {["products","agents","suppliers","settings"].map(t => (
-          <button key={t} className={`admin-tab${adminTab===t?" active":""}`} onClick={() => setAdminTab(t)}>
-            {t==="products"?"产品管理":t==="agents"?"代理账号":t==="suppliers"?"供应商":"系统设置"}
-          </button>
-        ))}
-      </div>
-      {adminTab === "products" && (
-        <>
-          <button className="add-product-btn">＋ 新增产品</button>
-          {PRODUCTS.map(p => (
-            <div key={p.id} className="admin-card">
-              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:14 }}>
-                <div>
-                  <div className="admin-card-title">{p.emoji} {p.name}</div>
-                  <div style={{ fontSize:11, color:"var(--fog)", marginTop:3 }}>{CATEGORIES.find(c=>c.id===p.cat)?.name}</div>
-                </div>
-                <div style={{ display:"flex", gap:8 }}>
-                  <button className="admin-action-btn" style={{ fontSize:11, padding:"5px 12px", borderRadius:20, border:"1px solid var(--border)", background:"none", color:"var(--mist)", cursor:"pointer", fontFamily:"var(--font-ui)" }}>编辑</button>
-                  <button className="admin-action-btn" style={{ fontSize:11, padding:"5px 12px", borderRadius:20, border:"1px solid var(--border)", background:"none", color:"var(--danger)", cursor:"pointer", fontFamily:"var(--font-ui)" }}>删除</button>
-                </div>
-              </div>
-              <div className="admin-price-grid">
-                <div className="admin-price-item"><div className="admin-price-label">市场价</div><div style={{ fontSize:16, color:"var(--mist)" }}>฿{p.retail.toLocaleString()}</div></div>
-                <div className="admin-price-item"><div className="admin-price-label">代理价</div><div style={{ fontSize:16, color:"var(--gold)" }}>฿{p.agent.toLocaleString()}</div></div>
-                <div className="admin-price-item"><div className="admin-price-label">成本价</div><div style={{ fontSize:16, color:"var(--danger)" }}>฿{p.cost.toLocaleString()}</div></div>
-              </div>
-              <div className="supplier-list">
-                {p.suppliers?.map((s,i) => {
-                  const isBest = s.price === Math.min(...p.suppliers.map(x=>x.price));
-                  return (
-                    <div key={i} className="supplier-row">
-                      <span className="supplier-name">{isBest?"⭐ ":""}{s.name}</span>
-                      <span style={{ color: isBest?"var(--success)":"var(--pearl)" }}>฿{s.price.toLocaleString()}</span>
-                    </div>
-                  );
-                })}
-              </div>
-              {p.notes && <div className="tag-row" style={{marginTop:10}}>{p.notes.map((n,i)=><span key={i} className="note-tag">{n}</span>)}</div>}
-            </div>
-          ))}
-        </>
-      )}
-      {adminTab === "agents" && (
-        <div className="admin-card">
-          <div className="admin-card-title" style={{marginBottom:16}}>代理商账号管理</div>
-          {[{name:"上海旅界旅行",code:"AG001",level:"钻石"},{name:"北京优途假期",code:"AG002",level:"金牌"},{name:"广州奢游社",code:"AG003",level:"银牌"}].map((a,i)=>(
-            <div key={i} className="supplier-row">
-              <div><div style={{fontSize:14,color:"var(--pearl)"}}>{a.name}</div><div style={{fontSize:11,color:"var(--fog)"}}>{a.code}</div></div>
-              <span style={{fontSize:11,color:"var(--gold)",background:"rgba(201,169,110,0.1)",border:"1px solid rgba(201,169,110,0.3)",padding:"2px 8px",borderRadius:20}}>{a.level}</span>
-            </div>
-          ))}
-        </div>
-      )}
-      {adminTab === "suppliers" && (
-        <div className="admin-card">
-          <div className="admin-card-title" style={{marginBottom:16}}>供应商数据库</div>
-          {[{name:"泰国海上蓝",contact:"张经理",tel:"+66 81 234 5678",cat:"游艇"},{name:"Villa Heaven",contact:"Smith",tel:"+66 82 345 6789",cat:"别墅"},{name:"Blue Sky Aviation",contact:"CapT",tel:"+66 83 456 7890",cat:"直升机"}].map((s,i)=>(
-            <div key={i} style={{padding:"14px 0",borderBottom:"1px solid var(--border)"}}>
-              <div style={{display:"flex",justifyContent:"space-between"}}>
-                <div className="admin-card-title">{s.name}</div>
-                <span className="badge badge-cat">{s.cat}</span>
-              </div>
-              <div style={{fontSize:12,color:"var(--fog)",marginTop:6,lineHeight:1.8}}>联系人: {s.contact} · 📞 {s.tel}</div>
-            </div>
-          ))}
-        </div>
-      )}
-      {adminTab === "settings" && (
-        <div className="admin-card">
-          <div className="admin-card-title" style={{marginBottom:16}}>系统设置</div>
-          {[["品牌名称","隐海 YINSEA PHUKET"],["联系微信","yinsea_phuket"],["WhatsApp","+66 91 234 5678"],["货币显示","泰铢 THB"]].map(([k,v],i)=>(
-            <div key={i} className="supplier-row">
-              <span className="supplier-name">{k}</span>
-              <span style={{color:"var(--pearl)"}}>{v}</span>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
