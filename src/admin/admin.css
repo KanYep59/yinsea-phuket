@@ -4,6 +4,9 @@
    ============================================================================ */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&family=Noto+Serif+SC:wght@300;400;500&display=swap');
 
+/* 后台独立运行时，body 没有前台 App 的深色背景；这里为整个视口兜底。 */
+html, body, #root { min-width: 0; max-width: 100%; background: #0a0c0f; }
+
 .adm-root, .adm-root *, .adm-root *::before, .adm-root *::after {
   box-sizing: border-box;
   margin: 0;
@@ -33,6 +36,10 @@
   --r-lg: 12px;
 
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
   background: var(--noir);
   color: var(--pearl);
   font-family: var(--font-ui);
@@ -122,7 +129,7 @@
 .adm-btn-block { width: 100%; }
 
 /* ---------- 整体布局 ---------- */
-.adm-shell { display: flex; min-height: 100vh; }
+.adm-shell { min-height: 100vh; width: 100%; max-width: 100%; overflow-x: hidden; overflow-x: clip; }
 
 .adm-sidebar {
   width: 232px;
@@ -163,7 +170,15 @@
 
 .adm-sidebar-close { display: none; }
 
-.adm-content { flex: 1; margin-left: 232px; min-height: 100vh; display: flex; flex-direction: column; }
+.adm-content {
+  flex: 1;
+  width: calc(100% - 232px);
+  min-width: 0;
+  margin-left: 232px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 .adm-topbar {
   height: 64px;
@@ -178,6 +193,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-width: 0;
 }
 .adm-topbar-left { display: flex; align-items: center; gap: 14px; }
 .adm-topbar-title { font-family: var(--font-display); font-size: 19px; font-weight: 300; color: var(--pearl); letter-spacing: 0.04em; }
@@ -188,7 +204,7 @@
 .adm-role-badge { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; border: 1px solid var(--gold); color: var(--gold); }
 .adm-role-badge.agent { border-color: var(--accent-teal); color: var(--accent-teal); }
 
-.adm-main { padding: 26px 28px 60px; flex: 1; }
+.adm-main { min-width: 0; padding: 26px 28px 60px; flex: 1; }
 .adm-page-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
 .adm-page-title { font-family: var(--font-display); font-size: 26px; font-weight: 300; color: var(--pearl); }
 .adm-page-sub { font-size: 12px; color: var(--fog); margin-top: 4px; letter-spacing: 0.05em; }
@@ -197,6 +213,8 @@
 
 /* ---------- 统计卡片 ---------- */
 .adm-stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 26px; }
+.adm-home-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.adm-home-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .adm-stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 18px 20px; }
 .adm-stat-num { font-family: var(--font-display); font-size: 32px; font-weight: 300; color: var(--gold); line-height: 1; }
 .adm-stat-label { font-size: 11px; color: var(--fog); margin-top: 8px; letter-spacing: 0.1em; }
@@ -206,7 +224,7 @@
 .adm-panel-title { font-size: 14px; font-weight: 400; color: var(--pearl); margin-bottom: 16px; letter-spacing: 0.05em; }
 
 /* ---------- 表格 ---------- */
-.adm-table-wrap { width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); }
+.adm-table-wrap { width: 100%; min-width: 0; overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); }
 .adm-table { width: 100%; border-collapse: collapse; min-width: 640px; }
 .adm-table th {
   text-align: left; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
@@ -298,7 +316,7 @@
   }
   .adm-sidebar.open { transform: translateX(0); }
   .adm-sidebar-close { display: block; background: none; border: none; color: var(--fog); font-size: 18px; cursor: pointer; position: absolute; top: 18px; right: 16px; }
-  .adm-content { margin-left: 0; }
+  .adm-content { width: 100%; margin-left: 0; }
   .adm-hamburger { display: flex; }
   .adm-sidebar-backdrop.open { display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 110; }
   .adm-topbar-title { font-size: 16px; }
@@ -307,7 +325,11 @@
 
 @media (max-width: 640px) {
   .adm-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .adm-home-stats { grid-template-columns: 1fr; }
   .adm-main { padding: 20px 16px 50px; }
   .adm-topbar { padding: 0 16px; }
   .adm-form-grid { grid-template-columns: 1fr; }
+  .adm-home-actions { width: 100%; }
+  .adm-home-actions .adm-btn { flex: 1 1 calc(50% - 5px); padding-inline: 10px; }
+  .adm-panel { padding: 16px; }
 }

@@ -58,7 +58,7 @@ export default function Home() {
               <div className="adm-page-title">欢迎回来，{profile?.display_name || "同事"}</div>
               <div className="adm-page-sub">隐海 YINSEA 后台管理系统总览</div>
             </div>
-            <div style={{ display: "flex", gap: 10 }}>
+            <div className="adm-home-actions">
               <Link to="/admin/products" className="adm-btn adm-btn-primary">产品管理</Link>
               <Link to="/admin/categories" className="adm-btn adm-btn-outline">分类管理</Link>
               <Link to="/admin/agents" className="adm-btn adm-btn-outline">代理商</Link>
@@ -68,7 +68,7 @@ export default function Home() {
 
           {error && <div className="adm-notice danger">{error}</div>}
 
-          <div className="adm-stats-grid" style={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
+          <div className="adm-stats-grid adm-home-stats">
             <div className="adm-stat-card">
               <div className="adm-stat-num">{stats.products}</div>
               <div className="adm-stat-label">产品总数</div>
