@@ -12,6 +12,12 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(location.state?.reason || "");
   const [submitting, setSubmitting] = useState(false);
+  const requestedRole = new URLSearchParams(location.search).get("role");
+  const loginTitle = requestedRole === "agent"
+    ? "代理商登录"
+    : requestedRole === "admin"
+      ? "管理员登录"
+      : "后台管理系统登录";
 
   // 已经登录（账号有效、角色明确）-> 自动跳转到对应角色的后台首页，
   // 不需要用户再手动点一次。
@@ -43,7 +49,7 @@ export default function Login() {
             <div className="adm-login-logo-cn">隐海</div>
             <div className="adm-login-logo-en">YINSEA PHUKET</div>
           </div>
-          <div className="adm-login-sub">后台管理系统登录</div>
+          <div className="adm-login-sub">{loginTitle}</div>
 
           {!supabaseConfigured && (
             <div className="adm-login-error">

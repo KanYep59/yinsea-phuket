@@ -237,7 +237,6 @@ export default function App() {
   const [searchQ, setSearchQ] = useState("");
   const [showLogin, setShowLogin] = useState(false);
   const [loginTab, setLoginTab] = useState("agent");
-  const [loginForm, setLoginForm] = useState({ user: "", pass: "" });
   const [menuOpen, setMenuOpen] = useState(false);
   const [catalog, setCatalog] = useState(() => ({
     products: [],
@@ -260,10 +259,10 @@ export default function App() {
 
   const navigate = (p) => { setPage(p); setMenuOpen(false); window.scrollTo(0, 0); };
 
+  // 官网不保存或校验任何账号密码。选择角色后统一进入正式后台，
+  // 由 Supabase 进行真实账号验证并根据账号角色跳转。
   const login = () => {
-    if (loginTab === "agent" && loginForm.pass === "agent888") { setRole("agent"); setShowLogin(false); }
-    else if (loginTab === "admin") { window.location.assign("/admin/login"); }
-    else alert("密码错误，请联系管理员");
+    window.location.assign(`/admin/login?role=${loginTab}`);
   };
 
   const logout = () => { setRole("guest"); navigate("home"); };
@@ -289,11 +288,11 @@ export default function App() {
           <span className="nav-brand-en">YINSEA PHUKET</span> 
         </div>
         <div className="nav-right">
-          {role !== "guest" && <span className="nav-role-badge">{role === "admin" ? "内部员工" : "代理商"}</span>}
+          {role !== "guest" && <span className="nav-role-badge">{role === "admin" ? "管理员" : "代理商"}</span>}
           <button className="nav-btn" onClick={() => navigate("products")}>产品库</button>
           {role === "admin" && <button className="nav-btn" onClick={() => navigate("admin")}>后台</button>}
           {role === "guest"
-            ? <button className="nav-btn gold" onClick={() => setShowLogin(true)}>代理登录</button>
+            ? <button className="nav-btn gold" onClick={() => setShowLogin(true)}>登录</button>
             : <button className="nav-btn" onClick={logout}>退出</button>}
           <button className="hamburger" onClick={() => setMenuOpen(true)}>
             <span /><span /><span />
@@ -310,7 +309,7 @@ export default function App() {
         ))}
         {role === "guest" && (
           <button className="btn-primary" style={{ marginTop: 20 }} onClick={() => { setShowLogin(true); setMenuOpen(false); }}>
-            代理商登录
+            登录
           </button>
         )}
       </div>
@@ -325,22 +324,16 @@ export default function App() {
             <div className="login-tabs">
               {["agent", "admin"].map(t => (
                 <button key={t} className={`login-tab${loginTab === t ? " active" : ""}`} onClick={() => setLoginTab(t)}>
-                  {t === "agent" ? "代理商" : "内部员工"}
+                  {t === "agent" ? "代理商登录" : "管理员登录"}
                 </button>
               ))}
             </div>
             <div className="login-hint">
-              {loginTab === "agent" ? <>演示密码：<strong>agent888</strong></> : "管理员请使用正式后台登录"}
+              请使用已分配的正式账号登录
             </div>
-            <div className="form-group">
-              <label className="form-label">账号</label>
-              <input className="form-input" placeholder="请输入账号" value={loginForm.user} onChange={e => setLoginForm({ ...loginForm, user: e.target.value })} />
-            </div>
-            <div className="form-group">
-              <label className="form-label">密码</label>
-              <input className="form-input" type="password" placeholder="请输入密码" value={loginForm.pass} onChange={e => setLoginForm({ ...loginForm, pass: e.target.value })} onKeyDown={e => e.key === "Enter" && login()} />
-            </div>
-            <button className="form-submit" onClick={login}>登 录</button>
+            <button className="form-submit" onClick={login}>
+              进入{loginTab === "agent" ? "代理商" : "管理员"}登录
+            </button>
           </div>
         </div>
       )}
