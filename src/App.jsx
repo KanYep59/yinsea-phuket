@@ -44,8 +44,6 @@ const STYLE = `
   .nav-btn:hover { color: var(--pearl); background: var(--border); }
   .nav-btn.gold { background: var(--gold); color: var(--noir); font-weight: 500; }
   .nav-btn.gold:hover { background: var(--gold-light); }
-  .hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 8px; }
-  .hamburger span { display: block; width: 22px; height: 1px; background: var(--pearl); transition: all 0.3s; }
   .hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px 24px; padding-top: 100px; position: relative; overflow: hidden; }
   .hero-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #0a0c0f 0%, #0d1520 40%, #0a1a2e 100%); }
   .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(201,169,110,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,169,110,0.04) 1px, transparent 1px); background-size: 60px 60px; }
@@ -210,15 +208,11 @@ const STYLE = `
   .footer-links-group h4 { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
   .footer-links-group a { display: block; font-size: 12px; color: var(--fog); margin-bottom: 8px; cursor: pointer; }
   .footer-bottom { border-top: 1px solid var(--border); padding-top: 16px; font-size: 10px; color: rgba(245,240,232,0.2); text-align: center; }
-  .mobile-menu { position: fixed; inset: 0; z-index: 150; background: var(--noir); padding: 24px; padding-top: 80px; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; gap: 8px; }
-  .mobile-menu.open { transform: translateX(0); }
-  .mobile-menu-item { font-family: var(--font-cn); font-size: 22px; color: var(--pearl); padding: 14px 0; border-bottom: 1px solid var(--border); cursor: pointer; display: flex; justify-content: space-between; }
-  .mobile-menu-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--mist); font-size: 24px; cursor: pointer; }
   .faq-item { border-bottom: 1px solid var(--border); }
   .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .empty-state { text-align: center; padding: 60px 20px; color: var(--fog); }
-  @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } .cat-grid { grid-template-columns: repeat(3, 1fr); } .cat-card:first-child { grid-column: span 3; } .hamburger { display: none; } }
-  @media (max-width: 639px) { .hamburger { display: flex; } .nav-right .nav-btn:not(.gold) { display: none; } .stats-bar { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } .cat-grid { grid-template-columns: repeat(3, 1fr); } .cat-card:first-child { grid-column: span 3; } }
+  @media (max-width: 639px) { .nav-right .nav-btn:not(.gold) { display: none; } .stats-bar { grid-template-columns: repeat(2, 1fr); } }
 `;const CATEGORIES = [
   { id: "yacht", icon: "⛵", name: "游艇出海", en: "Yacht Charter", cover: "https://i.ibb.co/zVD2W28k/photo-2026-06-10-00-59-12.jpg" },
   { id: "villa", icon: "🏛️", name: "奢华别墅", en: "Luxury Villa", cover: "https://i.ibb.co/bgT6WtC1/photo-2026-06-10-00-59-11.jpg" },
@@ -237,7 +231,6 @@ export default function App() {
   const [searchQ, setSearchQ] = useState("");
   const [showLogin, setShowLogin] = useState(false);
   const [loginTab, setLoginTab] = useState("agent");
-  const [menuOpen, setMenuOpen] = useState(false);
   const [catalog, setCatalog] = useState(() => ({
     products: [],
     categories: CATEGORIES,
@@ -257,7 +250,7 @@ export default function App() {
   const products = catalog.products;
   const categories = catalog.categories;
 
-  const navigate = (p) => { setPage(p); setMenuOpen(false); window.scrollTo(0, 0); };
+  const navigate = (p) => { setPage(p); window.scrollTo(0, 0); };
 
   // 官网不保存或校验任何账号密码。选择角色后统一进入正式后台，
   // 由 Supabase 进行真实账号验证并根据账号角色跳转。
@@ -294,25 +287,8 @@ export default function App() {
           {role === "guest"
             ? <button className="nav-btn gold" onClick={() => setShowLogin(true)}>登录</button>
             : <button className="nav-btn" onClick={logout}>退出</button>}
-          <button className="hamburger" onClick={() => setMenuOpen(true)}>
-            <span /><span /><span />
-          </button>
         </div>
       </nav>
-
-      <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
-        <button className="mobile-menu-close" onClick={() => setMenuOpen(false)}>✕</button>
-        {["游艇", "别墅", "SPA", "旅拍", "直升机", "定制"].map(c => (
-          <div key={c} className="mobile-menu-item" onClick={() => { navigate("products"); setMenuOpen(false); }}>
-            {c} <span style={{ color: "var(--gold)", fontSize: 14 }}>›</span>
-          </div>
-        ))}
-        {role === "guest" && (
-          <button className="btn-primary" style={{ marginTop: 20 }} onClick={() => { setShowLogin(true); setMenuOpen(false); }}>
-            登录
-          </button>
-        )}
-      </div>
 
       {showLogin && (
         <div className="login-overlay" onClick={e => e.target === e.currentTarget && setShowLogin(false)}>
