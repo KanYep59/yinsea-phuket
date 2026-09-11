@@ -66,15 +66,8 @@ const STYLE = `
   .hero-scroll span { font-size: 9px; letter-spacing: 0.3em; color: var(--fog); text-transform: uppercase; writing-mode: vertical-rl; }
   .hero-scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); }
   @keyframes scrollBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
-  .brand-promise { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 46px 7vw; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr); gap: 48px; align-items: center; }
-  .brand-promise-kicker { font-size: 10px; letter-spacing: 0.32em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
-  .brand-promise-title { font-family: var(--font-cn); color: var(--pearl); font-weight: 300; font-size: clamp(28px, 2.5vw, 38px); letter-spacing: 0.08em; line-height: 1.35; white-space: nowrap; }
-  .brand-promise-desc { max-width: 580px; margin-top: 12px; font-size: 13px; line-height: 1.9; color: var(--mist); font-weight: 300; }
-  .brand-promise-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .brand-promise-item { min-height: 82px; padding: 4px 22px; border-left: 1px solid var(--border); }
-  .brand-promise-name { font-family: var(--font-cn); font-size: 22px; font-weight: 300; color: var(--gold); letter-spacing: 0.08em; }
-  .brand-promise-copy { margin-top: 8px; font-size: 12px; color: var(--fog); line-height: 1.7; letter-spacing: 0.06em; }
   .section { padding: 60px 24px; }
+  .section-after-hero { padding-top: 72px; }
   .section-header { margin-bottom: 36px; }
   .section-label { font-size: 10px; font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
   .section-label::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--gold); }
@@ -215,8 +208,7 @@ const STYLE = `
   .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .empty-state { text-align: center; padding: 60px 20px; color: var(--fog); }
   @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } .cat-grid { grid-template-columns: repeat(3, 1fr); } .cat-card:first-child { grid-column: span 3; } }
-  @media (max-width: 900px) { .brand-promise { grid-template-columns: 1fr; gap: 30px; } }
-  @media (max-width: 639px) { .nav-right .nav-btn:not(.gold) { display: none; } .brand-promise { padding: 34px 24px; } .brand-promise-title { font-size: 27px; white-space: normal; } .brand-promise-title span { display: block; } .brand-promise-grid { grid-template-columns: repeat(2, 1fr); gap: 24px 0; } .brand-promise-item { min-height: 0; padding: 0 16px; } .brand-promise-item:nth-child(odd) { border-left: none; padding-left: 0; } .brand-promise-item:nth-child(even) { padding-right: 0; } }
+  @media (max-width: 639px) { .nav-right .nav-btn:not(.gold) { display: none; } .section-after-hero { padding-top: 48px; } }
 `;const CATEGORIES = [
   { id: "yacht", icon: "⛵", name: "游艇出海", en: "Yacht Charter", cover: "https://i.ibb.co/zVD2W28k/photo-2026-06-10-00-59-12.jpg" },
   { id: "villa", icon: "🏛️", name: "奢华别墅", en: "Luxury Villa", cover: "https://i.ibb.co/bgT6WtC1/photo-2026-06-10-00-59-11.jpg" },
@@ -358,28 +350,7 @@ export default function App() {
         <div className="hero-scroll"><span>Scroll</span><div className="hero-scroll-line" /></div>
       </section>
 
-      <section className="brand-promise">
-        <div>
-          <div className="brand-promise-kicker">YINSEA PHUKET · PRIVATE TRAVEL</div>
-          <h2 className="brand-promise-title"><span>隐于海之深处，</span><span>寻得奢华本真</span></h2>
-          <p className="brand-promise-desc">真正难忘的，不总在最热闹的地方。有时是一片海、一处居所，或一段安静相处的时间。</p>
-        </div>
-        <div className="brand-promise-grid">
-          {[
-            ["一片海", "向安达曼海深处出发"],
-            ["一处居所", "住进普吉的风景里"],
-            ["一段航程", "让远方不只是目的地"],
-            ["一个时刻", "留给真正重要的人"],
-          ].map(([name, copy]) => (
-            <div key={name} className="brand-promise-item">
-              <div className="brand-promise-name">{name}</div>
-              <div className="brand-promise-copy">{copy}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="section">
+      <section className="section section-after-hero">
         <div className="section-header">
           <div className="section-label">Categories</div>
           <h2 className="section-title">产品分类</h2>
