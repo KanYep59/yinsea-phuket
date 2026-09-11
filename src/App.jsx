@@ -1,5 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { loadPublicCatalog } from "./lib/publicCatalog.js";
+import wechatQr from "./assets/contact/yinsea-wechat-qr.jpg";
+import whatsappQr from "./assets/contact/yinsea-whatsapp-qr.jpg";
+
+const CONTACT = {
+  wechat: { label: "微信", labelEn: "WeChat", value: "YINSEA_Thailand", qr: wechatQr, alt: "YINSEA 隐海微信二维码" },
+  whatsapp: { label: "WhatsApp", labelEn: "WhatsApp", value: "+86 197 4383 3258", qr: whatsappQr, alt: "YINSEA 隐海 WhatsApp 二维码" },
+  email: { label: "邮箱", labelEn: "Email", value: "yinseathailand@gmail.com" },
+};
+const WHATSAPP_URL = "https://wa.me/8619743833258";
 const STYLE = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&family=Noto+Serif+SC:wght@300;400;500&display=swap');
 
@@ -142,9 +151,8 @@ const STYLE = `
   .price-main { font-family: var(--font-display); font-size: 36px; font-weight: 300; color: var(--gold); }
   .price-currency { font-size: 14px; color: var(--mist); }
   .contact-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-  .contact-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: var(--r); font-family: var(--font-ui); font-size: 13px; font-weight: 400; letter-spacing: 0.1em; cursor: pointer; border: none; transition: all 0.2s; }
-  .contact-wechat { background: #07c160; color: #fff; }
-  .contact-whatsapp { background: #25d366; color: #fff; }
+  .contact-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: var(--r); font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em; cursor: pointer; border: 1px solid var(--gold); background: var(--gold); color: var(--noir); transition: all 0.2s; }
+  .contact-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
 .back-btn { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 400; color: var(--pearl); cursor: pointer; padding: 12px 24px; background: none; border: none; transition: color 0.2s; letter-spacing: 0.05em; }
   .back-btn:hover { color: var(--gold); }
   .search-bar { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 10px 16px; margin-bottom: 20px; transition: border-color 0.2s; }
@@ -193,22 +201,59 @@ const STYLE = `
   .stats-card-num { font-family: var(--font-display); font-size: 32px; font-weight: 300; color: var(--gold); }
   .stats-card-label { font-size: 11px; color: var(--fog); margin-top: 4px; }
   .profit-highlight { color: #4caf7d !important; }
-  .contact-float { position: fixed; bottom: 24px; right: 16px; z-index: 90; display: flex; flex-direction: column; gap: 10px; }
-  .float-btn { width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-  .float-wechat { background: #07c160; }
-  .float-whatsapp { background: #25d366; }
-  .footer { background: var(--deep); border-top: 1px solid var(--border); padding: 40px 24px 24px; }
+  .contact-float { position: fixed; bottom: 24px; right: 16px; z-index: 90; }
+  .contact-float-btn { min-width: 92px; height: 48px; padding: 0 18px; border-radius: 24px; border: 1px solid rgba(201,169,110,0.7); background: rgba(10,12,15,0.92); color: var(--gold-light); box-shadow: 0 8px 28px rgba(0,0,0,0.42); font-family: var(--font-ui); font-size: 12px; letter-spacing: 0.16em; cursor: pointer; transition: all 0.2s; }
+  .contact-float-btn:hover { background: var(--gold); color: var(--noir); transform: translateY(-2px); }
+  .footer { background: var(--deep); border-top: 1px solid var(--border); padding: 48px 24px 24px; }
   .footer-brand { font-family: var(--font-cn); font-size: 22px; font-weight: 300; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 4px; }
   .footer-tagline { font-family: var(--font-display); font-size: 11px; color: var(--fog); letter-spacing: 0.3em; font-style: italic; margin-bottom: 24px; }
   .footer-links { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
   .footer-links-group h4 { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-  .footer-links-group a { display: block; font-size: 12px; color: var(--fog); margin-bottom: 8px; cursor: pointer; }
+  .footer-link { display: block; padding: 0; margin-bottom: 8px; border: 0; background: none; font-family: var(--font-ui); font-size: 12px; color: var(--fog); text-align: left; cursor: pointer; }
+  .footer-link:hover { color: var(--gold-light); }
+  .footer-contact { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 34px 0 24px; padding: 24px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .footer-contact-label { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
+  .footer-contact-title { font-family: var(--font-cn); font-size: 22px; font-weight: 300; color: var(--pearl); letter-spacing: 0.08em; }
+  .footer-contact-copy { margin-top: 7px; color: var(--fog); font-size: 12px; line-height: 1.7; }
+  .footer-contact-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .footer-contact-btn { min-width: 104px; padding: 11px 14px; border: 1px solid rgba(201,169,110,0.32); border-radius: var(--r); background: transparent; color: var(--gold-light); font-family: var(--font-ui); font-size: 11px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s; }
+  .footer-contact-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--noir); }
   .footer-bottom { border-top: 1px solid var(--border); padding-top: 16px; font-size: 10px; color: rgba(245,240,232,0.2); text-align: center; }
+  .contact-overlay { position: fixed; inset: 0; z-index: 220; display: grid; place-items: center; overflow-y: auto; padding: 24px; background: rgba(4,6,8,0.78); backdrop-filter: blur(14px); }
+  .contact-modal { width: min(940px, 100%); background: var(--surface); border: 1px solid rgba(201,169,110,0.28); border-radius: var(--r-lg); box-shadow: 0 28px 90px rgba(0,0,0,0.62); overflow: hidden; }
+  .contact-modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 28px 30px 22px; border-bottom: 1px solid var(--border); }
+  .contact-modal-kicker { font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); margin-bottom: 9px; }
+  .contact-modal-title { font-family: var(--font-cn); font-size: 30px; font-weight: 300; letter-spacing: 0.08em; color: var(--pearl); }
+  .contact-modal-close { width: 38px; height: 38px; flex: 0 0 auto; border: 1px solid var(--border); border-radius: 50%; background: transparent; color: var(--mist); font-size: 21px; font-weight: 200; cursor: pointer; transition: all 0.2s; }
+  .contact-modal-close:hover { border-color: var(--gold); color: var(--gold); }
+  .contact-modal-body { padding: 24px 30px 30px; }
+  .contact-method-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .contact-method-tab { min-height: 70px; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--r); background: var(--deep); color: var(--fog); text-align: left; cursor: pointer; transition: all 0.2s; font-family: var(--font-ui); }
+  .contact-method-tab.active { border-color: rgba(201,169,110,0.62); background: var(--gold-dim); color: var(--pearl); }
+  .contact-method-tab:hover { border-color: rgba(201,169,110,0.45); }
+  .contact-method-index { display: block; color: var(--gold); font-size: 9px; letter-spacing: 0.2em; margin-bottom: 5px; }
+  .contact-method-name { display: block; color: inherit; font-size: 13px; letter-spacing: 0.08em; }
+  .contact-modal-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 350px); gap: 22px; align-items: stretch; }
+  .contact-details-panel { display: flex; flex-direction: column; justify-content: center; min-height: 360px; padding: 30px; border: 1px solid var(--border); border-radius: var(--r-lg); background: linear-gradient(145deg, rgba(201,169,110,0.07), transparent 55%), var(--deep); }
+  .contact-details-title { font-family: var(--font-cn); color: var(--pearl); font-size: 25px; font-weight: 300; letter-spacing: 0.08em; }
+  .contact-details-copy { max-width: 360px; margin-top: 12px; color: var(--mist); font-size: 13px; line-height: 1.9; }
+  .contact-details-value { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .contact-details-value span { display: block; color: var(--fog); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
+  .contact-details-value strong { display: block; margin-top: 7px; color: var(--gold-light); font-family: var(--font-ui); font-size: 16px; font-weight: 400; letter-spacing: 0.06em; overflow-wrap: anywhere; }
+  .contact-direct-link { display: inline-flex; justify-content: center; align-items: center; align-self: flex-start; margin-top: 24px; padding: 12px 18px; border: 1px solid var(--gold); border-radius: var(--r); background: var(--gold); color: var(--noir); font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-decoration: none; transition: all 0.2s; }
+  .contact-direct-link:hover { background: var(--gold-light); border-color: var(--gold-light); }
+  .contact-qr-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; border: 1px solid rgba(201,169,110,0.24); border-radius: var(--r-lg); background: #0d1014; }
+  .contact-qr-paper { width: min(100%, 312px); padding: 14px; background: #f6f2e9; box-shadow: 0 14px 34px rgba(0,0,0,0.32); }
+  .contact-qr-image { display: block; width: 100%; height: auto; }
+  .contact-qr-note { margin-top: 13px; color: var(--fog); font-size: 10px; line-height: 1.6; letter-spacing: 0.08em; text-align: center; }
+  .contact-email-panel { grid-column: 1 / -1; min-height: 300px; align-items: center; text-align: center; }
+  .contact-email-panel .contact-details-copy { margin-left: auto; margin-right: auto; }
+  .contact-email-panel .contact-direct-link { align-self: center; }
   .faq-item { border-bottom: 1px solid var(--border); }
   .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .empty-state { text-align: center; padding: 60px 20px; color: var(--fog); }
   @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } .cat-grid { grid-template-columns: repeat(3, 1fr); } .cat-card:first-child { grid-column: span 3; } }
-  @media (max-width: 639px) { .nav-right .nav-btn:not(.gold) { display: none; } .section-after-hero { padding-top: 48px; } }
+  @media (max-width: 639px) { .nav-right .nav-btn:not(.gold) { display: none; } .section-after-hero { padding-top: 48px; } .contact-float { bottom: 18px; right: 14px; } .contact-float-btn { min-width: 82px; height: 44px; padding: 0 14px; } .footer { padding: 40px 24px 22px; } .footer-contact { align-items: flex-start; flex-direction: column; gap: 18px; } .footer-contact-actions { width: 100%; } .footer-contact-btn { flex: 1; min-width: 0; } .contact-overlay { display: block; padding: 12px; } .contact-modal { margin: 12px 0; max-height: calc(100svh - 24px); overflow-y: auto; } .contact-modal-header { padding: 22px 20px 18px; } .contact-modal-title { font-size: 26px; } .contact-modal-body { padding: 18px 20px 22px; } .contact-method-tabs { gap: 6px; } .contact-method-tab { min-height: 64px; padding: 10px; } .contact-method-name { font-size: 12px; } .contact-modal-main { grid-template-columns: 1fr; gap: 16px; } .contact-details-panel { min-height: 0; padding: 24px; } .contact-qr-panel { min-height: 0; padding: 14px; } .contact-qr-paper { width: min(100%, 292px); padding: 12px; } .contact-email-panel { min-height: 260px; } }
 `;const CATEGORIES = [
   { id: "yacht", icon: "⛵", name: "游艇出海", en: "Yacht Charter", cover: "https://i.ibb.co/zVD2W28k/photo-2026-06-10-00-59-12.jpg" },
   { id: "villa", icon: "🏛️", name: "奢华别墅", en: "Luxury Villa", cover: "https://i.ibb.co/bgT6WtC1/photo-2026-06-10-00-59-11.jpg" },
@@ -227,6 +272,9 @@ export default function App() {
   const [searchQ, setSearchQ] = useState("");
   const [showLogin, setShowLogin] = useState(false);
   const [loginTab, setLoginTab] = useState("agent");
+  const [contactOpen, setContactOpen] = useState(false);
+  const [contactMethod, setContactMethod] = useState("wechat");
+  const [contactProduct, setContactProduct] = useState("");
   const [catalog, setCatalog] = useState(() => ({
     products: [],
     categories: CATEGORIES,
@@ -247,6 +295,11 @@ export default function App() {
   const categories = catalog.categories;
 
   const navigate = (p) => { setPage(p); window.scrollTo(0, 0); };
+  const openContact = (method = "wechat", productName = "") => {
+    setContactMethod(method);
+    setContactProduct(productName);
+    setContactOpen(true);
+  };
 
   // 官网不保存或校验任何账号密码。选择角色后统一进入正式后台，
   // 由 Supabase 进行真实账号验证并根据账号角色跳转。
@@ -315,14 +368,20 @@ export default function App() {
       {page === "partner" && <PartnerPage navigate={navigate} />}
       {page === "about" && <AboutPage navigate={navigate} />}
       {page === "products" && <ProductsPage products={filteredProducts} categories={categories} role={role} selectedCat={selectedCat} setSelectedCat={setSelectedCat} searchQ={searchQ} setSearchQ={setSearchQ} statusBadge={statusBadge} setSelectedProduct={(p) => { setSelectedProduct(p); navigate("detail"); }} />}
-      {page === "detail" && selectedProduct && <DetailPage product={selectedProduct} role={role} back={() => navigate("products")} statusBadge={statusBadge} />}
-      {page !== "admin" && <Footer navigate={navigate} />}
+      {page === "detail" && selectedProduct && <DetailPage product={selectedProduct} role={role} back={() => navigate("products")} statusBadge={statusBadge} openContact={openContact} />}
+      {page !== "admin" && <Footer navigate={navigate} openContact={openContact} />}
       {page !== "admin" && (
         <div className="contact-float">
-          <button className="float-btn float-wechat">💬</button>
-          <button className="float-btn float-whatsapp">📱</button>
+          <button className="contact-float-btn" onClick={() => openContact()}>咨询</button>
         </div>
       )}
+      <ContactModal
+        open={contactOpen}
+        method={contactMethod}
+        productName={contactProduct}
+        onMethodChange={setContactMethod}
+        onClose={() => setContactOpen(false)}
+      />
     </div>
   );
 }function HomePage({ navigate, products, categories, setSelectedCat, setSelectedProduct, statusBadge, role }) {
@@ -691,7 +750,7 @@ function AboutPage({ navigate }) {
     </div>
   );
 }
-function DetailPage({ product: p, role, back, statusBadge }) {
+function DetailPage({ product: p, role, back, statusBadge, openContact }) {
   const [openFaq, setOpenFaq] = useState(null);
   const [currentImg, setCurrentImg] = useState(0);
   const bestSupplier = p.suppliers?.reduce((a, b) => a.price < b.price ? a : b);
@@ -764,8 +823,7 @@ function DetailPage({ product: p, role, back, statusBadge }) {
             </div>
           )}
           <div className="contact-btns">
-            <button className="contact-btn contact-wechat">💬 微信咨询预订</button>
-            <button className="contact-btn contact-whatsapp">📱 WhatsApp</button>
+            <button className="contact-btn" onClick={() => openContact("wechat", p.name)}>咨询此产品</button>
           </div>
         </div>
         {p.itinerary && <div className="detail-section" style={{ marginTop: 24 }}>
@@ -829,7 +887,7 @@ function DetailPage({ product: p, role, back, statusBadge }) {
   );
 }
 
-function Footer({ navigate }) {
+function Footer({ navigate, openContact }) {
   return (
     <footer className="footer">
       <div className="footer-brand">隐海</div>
@@ -837,14 +895,117 @@ function Footer({ navigate }) {
       <div className="footer-links">
         <div className="footer-links-group">
           <h4>产品</h4>
-          {["游艇出海","奢华别墅","顶级SPA","直升机","隐海定制"].map(l=><a key={l} onClick={()=>navigate("products")}>{l}</a>)}
+          {["游艇出海","奢华别墅","顶级SPA","直升机","隐海定制"].map(l => <button className="footer-link" key={l} onClick={() => navigate("products")}>{l}</button>)}
         </div>
         <div className="footer-links-group">
           <h4>关于我们</h4>
-          {["品牌介绍","合作计划","联系我们","加入隐海"].map(l=><a key={l} onClick={l==="品牌介绍" ? ()=>navigate("about") : l==="合作计划" ? ()=>navigate("partner") : l==="加入隐海" ? ()=>navigate("join") : undefined} style={(l==="品牌介绍"||l==="合作计划"||l==="加入隐海") ? {cursor:"pointer"} : {}}>{l}</a>)}
+          <button className="footer-link" onClick={() => navigate("about")}>品牌介绍</button>
+          <button className="footer-link" onClick={() => navigate("partner")}>合作计划</button>
+          <button className="footer-link" onClick={() => openContact()}>联系我们</button>
+          <button className="footer-link" onClick={() => navigate("join")}>加入隐海</button>
         </div>
       </div>
+      <section className="footer-contact" aria-label="联系隐海">
+        <div>
+          <div className="footer-contact-label">Contact YINSEA</div>
+          <div className="footer-contact-title">联系隐海</div>
+          <p className="footer-contact-copy">告诉我们您的日期、人数与偏好，开始规划专属普吉之旅。</p>
+        </div>
+        <div className="footer-contact-actions">
+          <button className="footer-contact-btn" onClick={() => openContact("wechat")}>微信咨询</button>
+          <button className="footer-contact-btn" onClick={() => openContact("whatsapp")}>WhatsApp</button>
+          <button className="footer-contact-btn" onClick={() => openContact("email")}>发送邮件</button>
+        </div>
+      </section>
       <div className="footer-bottom">© 2024 隐海 YINSEA PHUKET · All Rights Reserved</div>
     </footer>
+  );
+}
+
+function ContactModal({ open, method, productName, onMethodChange, onClose }) {
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const selected = CONTACT[method];
+  const subject = productName ? `YINSEA 产品咨询｜${productName}` : "YINSEA 普吉岛旅程咨询";
+  const mailto = `mailto:${CONTACT.email.value}?subject=${encodeURIComponent(subject)}`;
+  const whatsappText = productName ? `您好，我想咨询「${productName}」。` : "您好，我想咨询普吉岛行程。";
+  const whatsappUrl = `${WHATSAPP_URL}?text=${encodeURIComponent(whatsappText)}`;
+  const isEmail = method === "email";
+
+  return (
+    <div className="contact-overlay" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <section className="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+        <header className="contact-modal-header">
+          <div>
+            <div className="contact-modal-kicker">Contact YINSEA</div>
+            <h2 className="contact-modal-title" id="contact-modal-title">联系隐海</h2>
+          </div>
+          <button className="contact-modal-close" onClick={onClose} aria-label="关闭联系窗口">×</button>
+        </header>
+        <div className="contact-modal-body">
+          <div className="contact-method-tabs" aria-label="选择联系方式">
+            {Object.entries(CONTACT).map(([key, contact], index) => (
+              <button
+                key={key}
+                className={`contact-method-tab${method === key ? " active" : ""}`}
+                onClick={() => onMethodChange(key)}
+                aria-pressed={method === key}
+              >
+                <span className="contact-method-index">0{index + 1}</span>
+                <span className="contact-method-name">{contact.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {isEmail ? (
+            <div className="contact-details-panel contact-email-panel">
+              <h3 className="contact-details-title">邮件咨询</h3>
+              <p className="contact-details-copy">{productName ? `关于「${productName}」，欢迎将日期、人数与需求发送给我们。` : "欢迎将您的日期、人数与偏好发送给我们。"}</p>
+              <div className="contact-details-value">
+                <span>Email</span>
+                <strong>{CONTACT.email.value}</strong>
+              </div>
+              <a className="contact-direct-link" href={mailto}>发送邮件</a>
+            </div>
+          ) : (
+            <div className="contact-modal-main">
+              <div className="contact-details-panel">
+                <h3 className="contact-details-title">{selected.label}咨询</h3>
+                <p className="contact-details-copy">
+                  {productName ? `正在咨询「${productName}」。请扫描二维码或使用下方方式与我们联系。` : "请扫描二维码，或使用下方方式与我们联系。"}
+                </p>
+                <div className="contact-details-value">
+                  <span>{selected.labelEn}</span>
+                  <strong>{selected.value}</strong>
+                </div>
+                {method === "whatsapp" && <a className="contact-direct-link" href={whatsappUrl} target="_blank" rel="noreferrer">打开 WhatsApp</a>}
+              </div>
+              <div className="contact-qr-panel">
+                <div className="contact-qr-paper">
+                  <img className="contact-qr-image" src={selected.qr} alt={selected.alt} />
+                </div>
+                <p className="contact-qr-note">原始二维码 · 请保持完整画面扫码</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
   );
 }
