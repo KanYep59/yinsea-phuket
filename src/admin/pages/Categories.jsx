@@ -1,15 +1,30 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { Modal, ConfirmDialog, Loading, EmptyState, StatusBadge } from "../components/ui";
+import {
+  ACCEPTED_IMAGE_TYPES,
+  deleteStorageObject,
+  storagePathFromPublicUrl,
+  uploadImageFile,
+  validateImageFile,
+} from "../lib/storage";
 
 // 管理员分类管理页（/admin/categories，仅管理员可进入）。
 // 真实字段（已核对 information_schema）：
 //   id, created_at, name, name_en, slug, emoji, cover_image, sort_order, status
 // status 固定两个值：active = 启用，inactive = 停用。
-// cover_image 在这里完全不读、不写、不清空——分类图片留到图片库阶段统一管理。
 const STATUS_LABEL = { active: "启用", inactive: "停用" };
 
-const emptyForm = { id: null, name: "", name_en: "", slug: "", emoji: "", sort_order: 0, status: "active" };
+const emptyForm = {
+  id: null,
+  name: "",
+  name_en: "",
+  slug: "",
+  emoji: "",
+  cover_image: "",
+  sort_order: 0,
+  status: "active",
+};
 
 export default function Categories() {
   const [rows, setRows] = useState([]);
@@ -20,6 +35,12 @@ export default function Categories() {
 
   const [form, setForm] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [coverFile, setCoverFile] = useState(null);
+  const [coverPreview, setCoverPreview] = useState("");
+  const [coverShouldClear, setCoverShouldClear] = useState(false);
+  const [coverError, setCoverError] = useState("");
+  const [formError, setFormError] = useState("");
+  const coverInputRef = useRef(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleteBlockedMsg, setDeleteBlockedMsg] = useState("");
 
@@ -54,22 +75,81 @@ export default function Categories() {
 
   const productCount = (id) => counts[String(id)] || 0;
 
-  const openCreate = () => setForm({ ...emptyForm });
-  const openEdit = (row) => setForm({
-    id: row.id,
-    name: row.name || "",
-    name_en: row.name_en || "",
-    slug: row.slug || "",
-    emoji: row.emoji || "",
-    sort_order: row.sort_order ?? 0,
-    status: row.status === "inactive" ? "inactive" : "active",
-  });
+  useEffect(() => () => {
+    if (coverPreview.startsWith("blob:")) URL.revokeObjectURL(coverPreview);
+  }, [coverPreview]);
+
+  const resetCoverEditor = (imageUrl = "") => {
+    setCoverFile(null);
+    setCoverPreview(imageUrl);
+    setCoverShouldClear(false);
+    setCoverError("");
+    setFormError("");
+    if (coverInputRef.current) coverInputRef.current.value = "";
+  };
+
+  const closeForm = () => {
+    resetCoverEditor();
+    setForm(null);
+  };
+
+  const openCreate = () => {
+    resetCoverEditor();
+    setForm({ ...emptyForm });
+  };
+
+  const openEdit = (row) => {
+    const imageUrl = row.cover_image || "";
+    resetCoverEditor(imageUrl);
+    setForm({
+      id: row.id,
+      name: row.name || "",
+      name_en: row.name_en || "",
+      slug: row.slug || "",
+      emoji: row.emoji || "",
+      cover_image: imageUrl,
+      sort_order: row.sort_order ?? 0,
+      status: row.status === "inactive" ? "inactive" : "active",
+    });
+  };
+
+  const selectCoverFile = (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+
+    const validationError = validateImageFile(file);
+    if (validationError) {
+      setCoverError(validationError);
+      return;
+    }
+
+    setCoverError("");
+    setCoverFile(file);
+    setCoverShouldClear(false);
+    setCoverPreview(URL.createObjectURL(file));
+  };
+
+  const removeSelectedCover = () => {
+    setCoverFile(null);
+    setCoverPreview("");
+    setCoverShouldClear(Boolean(form?.cover_image));
+    setCoverError("");
+  };
+
+  const restoreOriginalCover = () => {
+    setCoverFile(null);
+    setCoverPreview(form?.cover_image || "");
+    setCoverShouldClear(false);
+    setCoverError("");
+  };
 
   const save = async () => {
-    if (!form.name.trim()) { setError("请填写分类名称"); return; }
-    if (!form.slug.trim()) { setError("请填写 slug"); return; }
+    if (!form.name.trim()) { setFormError("请填写分类名称"); return; }
+    if (!form.slug.trim()) { setFormError("请填写 slug"); return; }
     setSaving(true);
     setError("");
+    setFormError("");
     const payload = {
       name: form.name.trim(),
       name_en: form.name_en.trim(),
@@ -77,15 +157,76 @@ export default function Categories() {
       emoji: form.emoji,
       sort_order: Number(form.sort_order) || 0,
       status: form.status === "inactive" ? "inactive" : "active",
-      // 不包含 cover_image：新建/编辑分类都不会写入或清空分类图片。
     };
-    const { error } = form.id
-      ? await supabase.from("categories").update(payload).eq("id", form.id)
-      : await supabase.from("categories").insert(payload);
+
+    let categoryId = form.id;
+    let insertedNewCategory = false;
+    let uploadedImage = null;
+    let nextCoverUrl = form.cover_image || null;
+
+    try {
+      // 新建分类要先得到 ID，才能把图片放到这个分类专属的文件夹中。
+      if (!categoryId) {
+        const { data, error } = await supabase
+          .from("categories")
+          .insert({ ...payload, cover_image: null })
+          .select("id")
+          .single();
+        if (error) throw error;
+        categoryId = data.id;
+        insertedNewCategory = true;
+      }
+
+      if (coverFile) {
+        uploadedImage = await uploadImageFile(coverFile, `categories/${categoryId}`);
+        nextCoverUrl = uploadedImage.url;
+      } else if (coverShouldClear) {
+        nextCoverUrl = null;
+      }
+
+      // 新建且未选择图片时，上面的 insert 已经保存完所有字段，无需再写一次。
+      if (!insertedNewCategory || coverFile || coverShouldClear) {
+        const { error } = await supabase
+          .from("categories")
+          .update({ ...payload, cover_image: nextCoverUrl })
+          .eq("id", categoryId);
+        if (error) throw error;
+      }
+    } catch (saveError) {
+      if (uploadedImage?.path) {
+        // 数据库没有成功保存时，清理刚上传的新文件，避免留下无法使用的图片。
+        await deleteStorageObject(uploadedImage.path).catch(() => {});
+      }
+
+      if (insertedNewCategory) {
+        setForm((current) => current && { ...current, id: categoryId, cover_image: "" });
+        await load();
+        setFormError(`分类已创建，但封面图片未能保存：${saveError.message}。请重新选择图片后再次保存。`);
+      } else {
+        setFormError(saveError.message || "保存失败，请稍后重试");
+      }
+      setSaving(false);
+      return;
+    }
+
+    const oldPath = storagePathFromPublicUrl(form.cover_image);
+    let cleanupWarning = "";
+    // 只清理本分类目录里的旧图，绝不删除产品图片或外部图片链接。
+    if (
+      oldPath?.startsWith(`categories/${categoryId}/`)
+      && form.cover_image !== nextCoverUrl
+    ) {
+      try {
+        await deleteStorageObject(oldPath);
+      } catch {
+        cleanupWarning = "分类已保存，但旧图片文件未能自动清理，不影响网站展示。";
+      }
+    }
+
     setSaving(false);
-    if (error) { setError(error.message); return; }
-    setForm(null);
-    load();
+    closeForm();
+    await load();
+    if (cleanupWarning) setError(cleanupWarning);
   };
 
   const toggleStatus = async (row) => {
@@ -107,9 +248,24 @@ export default function Categories() {
 
   const remove = async () => {
     const { error } = await supabase.from("categories").delete().eq("id", deleteTarget.id);
-    if (error) setError(error.message);
+    if (error) {
+      setError(error.message);
+      setDeleteTarget(null);
+      return;
+    }
+
+    const coverPath = storagePathFromPublicUrl(deleteTarget.cover_image);
+    let cleanupWarning = "";
+    if (coverPath?.startsWith(`categories/${deleteTarget.id}/`)) {
+      try {
+        await deleteStorageObject(coverPath);
+      } catch {
+        cleanupWarning = "分类已删除，但关联图片文件未能自动清理。";
+      }
+    }
     setDeleteTarget(null);
-    load();
+    await load();
+    if (cleanupWarning) setError(cleanupWarning);
   };
 
   return (
@@ -197,16 +353,17 @@ export default function Categories() {
       {form && (
         <Modal
           title={form.id ? "编辑分类" : "新建分类"}
-          onClose={() => setForm(null)}
+          onClose={saving ? () => {} : closeForm}
           footer={
             <>
-              <button className="adm-btn adm-btn-outline" onClick={() => setForm(null)}>取消</button>
+              <button className="adm-btn adm-btn-outline" onClick={closeForm} disabled={saving}>取消</button>
               <button className="adm-btn adm-btn-primary" onClick={save} disabled={saving}>
                 {saving ? "保存中…" : "保存"}
               </button>
             </>
           }
         >
+          {formError && <div className="adm-notice danger">{formError}</div>}
           <div className="adm-form-grid">
             <div className="adm-field">
               <label className="adm-label">分类中文名称</label>
@@ -265,8 +422,63 @@ export default function Categories() {
               </select>
             </div>
             <div className="adm-field full">
-              <label className="adm-label">分类图片</label>
-              <div className="adm-notice">分类图片将在图片库阶段统一管理</div>
+              <label className="adm-label">分类封面图片</label>
+              <div className="adm-category-cover">
+                {coverPreview ? (
+                  <div className="adm-category-cover-preview">
+                    <img src={coverPreview} alt="分类封面预览" />
+                  </div>
+                ) : (
+                  <div className="adm-category-cover-empty">暂未设置分类封面</div>
+                )}
+
+                <div className="adm-category-cover-actions">
+                  <input
+                    ref={coverInputRef}
+                    type="file"
+                    accept={ACCEPTED_IMAGE_TYPES.join(",")}
+                    onChange={selectCoverFile}
+                    hidden
+                  />
+                  <button
+                    type="button"
+                    className="adm-btn adm-btn-outline adm-btn-sm"
+                    onClick={() => coverInputRef.current?.click()}
+                    disabled={saving}
+                  >
+                    {coverPreview ? "替换图片" : "选择图片"}
+                  </button>
+                  {coverPreview && (
+                    <button
+                      type="button"
+                      className="adm-btn adm-btn-danger adm-btn-sm"
+                      onClick={removeSelectedCover}
+                      disabled={saving}
+                    >
+                      移除图片
+                    </button>
+                  )}
+                  {(coverFile || coverShouldClear) && form.cover_image && (
+                    <button
+                      type="button"
+                      className="adm-btn adm-btn-ghost adm-btn-sm"
+                      onClick={restoreOriginalCover}
+                      disabled={saving}
+                    >
+                      恢复原图
+                    </button>
+                  )}
+                </div>
+
+                <div className="adm-category-cover-hint">
+                  {coverFile
+                    ? `已选择「${coverFile.name}」，点击“保存”后上传。`
+                    : coverShouldClear
+                      ? "当前图片将在保存后移除。"
+                      : "支持 JPG、PNG、WebP，单张最大 10MB。首页分类卡会自动使用此图。"}
+                </div>
+                {coverError && <div className="adm-category-cover-error">{coverError}</div>}
+              </div>
             </div>
           </div>
         </Modal>

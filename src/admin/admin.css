@@ -278,6 +278,35 @@ html, body, #root { min-width: 0; max-width: 100%; background: #0a0c0f; }
 .adm-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .adm-form-grid .adm-field.full { grid-column: 1 / -1; }
 
+/* ---------- 分类封面上传 ---------- */
+.adm-category-cover {
+  border: 1px dashed rgba(201,169,110,0.35);
+  border-radius: var(--r-lg);
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(201,169,110,0.07), transparent 58%);
+}
+.adm-category-cover-preview,
+.adm-category-cover-empty {
+  width: min(100%, 360px);
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.adm-category-cover-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.adm-category-cover-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fog);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+.adm-category-cover-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.adm-category-cover-hint { color: var(--mist); font-size: 11px; line-height: 1.7; margin-top: 10px; }
+.adm-category-cover-error { color: #ff9d9d; font-size: 11px; line-height: 1.7; margin-top: 6px; }
+
 /* ---------- 图片库 ---------- */
 .adm-image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
 .adm-image-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
