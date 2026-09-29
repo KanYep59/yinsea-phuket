@@ -128,7 +128,7 @@ const STYLE = `
   .internal-key { color: var(--fog); }
   .internal-val { color: var(--pearl); font-weight: 400; }
   .supplier-tag { font-size: 10px; color: var(--accent-teal); background: rgba(78,205,196,0.1); border: 1px solid rgba(78,205,196,0.2); padding: 3px 8px; border-radius: 20px; margin-top: 6px; display: inline-block; }
-  .detail-page { padding-top: 64px; min-height: 100vh; }
+  .detail-page { padding-top: 104px; min-height: 100vh; }
   .detail-hero { height: 55vw; max-height: 360px; background: var(--card); display: flex; align-items: center; justify-content: center; font-size: 100px; position: relative; overflow: hidden; }
   .detail-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--noir) 100%); }
   .detail-content { padding: 24px; }
@@ -153,8 +153,9 @@ const STYLE = `
   .contact-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
   .contact-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: var(--r); font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em; cursor: pointer; border: 1px solid var(--gold); background: var(--gold); color: var(--noir); transition: all 0.2s; }
   .contact-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
-.back-btn { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 400; color: var(--pearl); cursor: pointer; padding: 12px 24px; background: none; border: none; transition: color 0.2s; letter-spacing: 0.05em; }
-  .back-btn:hover { color: var(--gold); }
+  .back-btn { position: fixed; top: 64px; left: 24px; z-index: 95; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 400; color: var(--pearl); cursor: pointer; padding: 10px 14px; background: rgba(10,12,15,0.92); border: 1px solid var(--border); border-radius: var(--r); backdrop-filter: blur(14px); box-shadow: 0 8px 24px rgba(0,0,0,0.28); transition: color 0.2s, border-color 0.2s, background 0.2s; letter-spacing: 0.05em; }
+  .back-btn:hover { color: var(--gold); border-color: rgba(201,169,110,0.55); background: rgba(22,27,34,0.96); }
+  .back-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   .search-bar { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 10px 16px; margin-bottom: 20px; transition: border-color 0.2s; }
   .search-bar:focus-within { border-color: var(--gold); }
   .search-bar input { flex: 1; background: none; border: none; outline: none; font-family: var(--font-ui); font-size: 14px; font-weight: 300; color: var(--pearl); }
@@ -253,7 +254,7 @@ const STYLE = `
   .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .empty-state { text-align: center; padding: 60px 20px; color: var(--fog); }
   @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(2, 1fr); } .cat-grid { grid-template-columns: repeat(3, 1fr); } .cat-card:first-child { grid-column: span 3; } }
-  @media (max-width: 639px) { .nav-right .nav-btn:not(.gold) { display: none; } .section-after-hero { padding-top: 48px; } .contact-float { bottom: 18px; right: 14px; } .contact-float-btn { min-width: 82px; height: 44px; padding: 0 14px; } .footer { padding: 40px 24px 22px; } .footer-contact { align-items: flex-start; flex-direction: column; gap: 18px; } .footer-contact-actions { width: 100%; } .footer-contact-btn { flex: 1; min-width: 0; } .contact-overlay { display: block; padding: 12px; } .contact-modal { margin: 12px 0; max-height: calc(100svh - 24px); overflow-y: auto; } .contact-modal-header { padding: 22px 20px 18px; } .contact-modal-title { font-size: 26px; } .contact-modal-body { padding: 18px 20px 22px; } .contact-method-tabs { gap: 6px; } .contact-method-tab { min-height: 64px; padding: 10px; } .contact-method-name { font-size: 12px; } .contact-modal-main { grid-template-columns: 1fr; gap: 16px; } .contact-details-panel { min-height: 0; padding: 24px; } .contact-qr-panel { min-height: 0; padding: 14px; } .contact-qr-paper { width: min(100%, 292px); padding: 12px; } .contact-email-panel { min-height: 260px; } }
+  @media (max-width: 639px) { .nav-right .nav-btn:not(.gold) { display: none; } .back-btn { left: 12px; padding: 9px 12px; font-size: 12px; } .section-after-hero { padding-top: 48px; } .contact-float { bottom: 18px; right: 14px; } .contact-float-btn { min-width: 82px; height: 44px; padding: 0 14px; } .footer { padding: 40px 24px 22px; } .footer-contact { align-items: flex-start; flex-direction: column; gap: 18px; } .footer-contact-actions { width: 100%; } .footer-contact-btn { flex: 1; min-width: 0; } .contact-overlay { display: block; padding: 12px; } .contact-modal { margin: 12px 0; max-height: calc(100svh - 24px); overflow-y: auto; } .contact-modal-header { padding: 22px 20px 18px; } .contact-modal-title { font-size: 26px; } .contact-modal-body { padding: 18px 20px 22px; } .contact-method-tabs { gap: 6px; } .contact-method-tab { min-height: 64px; padding: 10px; } .contact-method-name { font-size: 12px; } .contact-modal-main { grid-template-columns: 1fr; gap: 16px; } .contact-details-panel { min-height: 0; padding: 24px; } .contact-qr-panel { min-height: 0; padding: 14px; } .contact-qr-paper { width: min(100%, 292px); padding: 12px; } .contact-email-panel { min-height: 260px; } }
 `;const CATEGORIES = [
   { id: "yacht", icon: "⛵", name: "游艇出海", en: "Yacht Charter", cover: "https://i.ibb.co/zVD2W28k/photo-2026-06-10-00-59-12.jpg" },
   { id: "villa", icon: "🏛️", name: "奢华别墅", en: "Luxury Villa", cover: "https://i.ibb.co/bgT6WtC1/photo-2026-06-10-00-59-11.jpg" },
