@@ -153,8 +153,8 @@ const STYLE = `
   .contact-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
   .contact-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; border-radius: var(--r); font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.16em; cursor: pointer; border: 1px solid var(--gold); background: var(--gold); color: var(--noir); transition: all 0.2s; }
   .contact-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
-  .back-btn { position: fixed; top: 64px; left: 24px; z-index: 95; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 400; color: var(--pearl); cursor: pointer; padding: 10px 14px; background: rgba(10,12,15,0.92); border: 1px solid var(--border); border-radius: var(--r); backdrop-filter: blur(14px); box-shadow: 0 8px 24px rgba(0,0,0,0.28); transition: color 0.2s, border-color 0.2s, background 0.2s; letter-spacing: 0.05em; }
-  .back-btn:hover { color: var(--gold); border-color: rgba(201,169,110,0.55); background: rgba(22,27,34,0.96); }
+  .back-btn { position: fixed; top: 64px; left: 24px; z-index: 95; display: flex; align-items: center; gap: 8px; font-family: var(--font-cn); font-size: 14px; font-weight: 300; color: var(--gold); cursor: pointer; padding: 10px 0; background: transparent; border: none; box-shadow: none; text-shadow: 0 1px 10px rgba(0,0,0,0.72); transition: color 0.2s; letter-spacing: 0.15em; }
+  .back-btn:hover { color: var(--gold-light); background: transparent; }
   .back-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   .search-bar { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 10px 16px; margin-bottom: 20px; transition: border-color 0.2s; }
   .search-bar:focus-within { border-color: var(--gold); }
